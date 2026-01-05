@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgresql-db
+    env_file:
+      - .env.file
+
+    # Keep it local-only (good). Remove this entirely if your app runs in the same compose network.
+    ports:
+      - "127.0.0.1:5432:5432"
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -h 127.0.0.1 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+    restart: unless-stopped
+
+    # Optional hardening (safe for postgres image)
+    security_opt:
+      - no-new-privileges:true
+    shm_size: "256mb"
+
+volumes:
+  pgdata:
