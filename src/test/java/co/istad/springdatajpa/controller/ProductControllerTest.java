@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -23,8 +24,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -33,6 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @WebMvcTest(ProductController.class)
 @Import({SpringDataWebConfig.class, RestExceptionHandler.class})
@@ -88,6 +92,59 @@ class ProductControllerTest {
     }
 
     @Test
+    void listProducts_capturesPageableAndSort() throws Exception {
+        ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
+        Page<ProductResponse> page = new PageImpl<>(List.of(), PageRequest.of(2, 5), 0);
+        when(productService.findAll(captor.capture())).thenReturn(page);
+
+        mockMvc.perform(get("/products")
+                        .param("page", "2")
+                        .param("size", "5")
+                        .param("sort", "name,asc"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.page.number").value(2))
+                .andExpect(jsonPath("$.page.size").value(5));
+
+        Pageable pageable = captor.getValue();
+        assertThat(pageable.getPageNumber()).isEqualTo(2);
+        assertThat(pageable.getPageSize()).isEqualTo(5);
+        assertThat(pageable.getSort().getOrderFor("name")).isNotNull();
+        assertThat(pageable.getSort().getOrderFor("name").isAscending()).isTrue();
+    }
+
+    @Test
+    void listProducts_sortByNameAsc_ordersContent() throws Exception {
+        ProductResponse first = newResponse("Alpha", "A", "1.00");
+        ProductResponse second = newResponse("Beta", "B", "2.00");
+        Page<ProductResponse> page = new PageImpl<>(List.of(first, second), PageRequest.of(0, 20), 2);
+        when(productService.findAll(any(Pageable.class))).thenReturn(page);
+
+        mockMvc.perform(get("/products")
+                        .param("sort", "name,asc"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].name").value("Alpha"))
+                .andExpect(jsonPath("$.content[1].name").value("Beta"));
+    }
+
+    @Test
+    void listProducts_outOfRangePage_returnsStablePage() throws Exception {
+        when(productService.findAll(any(Pageable.class)))
+                .thenAnswer(invocation -> {
+                    Pageable pageable = invocation.getArgument(0);
+                    return new PageImpl<>(List.of(), pageable, 0);
+                });
+
+        mockMvc.perform(get("/products")
+                        .param("page", "999")
+                        .param("size", "20"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.page.number").value(999))
+                .andExpect(jsonPath("$.page.totalElements").value(0))
+                .andExpect(jsonPath("$.page.totalPages").value(0));
+    }
+
+    @Test
     void listProducts_invalidPaging_returns400() throws Exception {
         mockMvc.perform(get("/products")
                         .param("page", "-1")
@@ -103,9 +160,25 @@ class ProductControllerTest {
 
         mockMvc.perform(get("/products"))
                 .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.message").value("Unexpected error occurred"))
                 .andExpect(jsonPath("$.status").value(500))
-                .andExpect(jsonPath("$.path").value("/products"));
+                .andExpect(jsonPath("$.path").value("/products"))
+                .andExpect(jsonPath("$.message").value(not(containsString("Exception"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("StackTrace"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("at "))))
+                .andExpect(jsonPath("$.message").value(not(containsString("org."))))
+                .andExpect(jsonPath("$.message").value(not(containsString("com."))))
+                .andExpect(jsonPath("$.message").value(not(containsString("SELECT"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("INSERT"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("UPDATE"))))
+                .andExpect(content().string(not(containsString("Exception"))))
+                .andExpect(content().string(not(containsString("StackTrace"))))
+                .andExpect(content().string(not(containsString("at "))))
+                .andExpect(content().string(not(containsString("org."))))
+                .andExpect(content().string(not(containsString("com."))))
+                .andExpect(content().string(not(containsString("SELECT"))))
+                .andExpect(content().string(not(containsString("INSERT"))))
+                .andExpect(content().string(not(containsString("UPDATE"))));
     }
 
     @Test
