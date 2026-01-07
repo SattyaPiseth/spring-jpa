@@ -2,12 +2,16 @@ package co.istad.springdatajpa.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import co.istad.springdatajpa.entity.Product;
 import co.istad.springdatajpa.repository.ProductRepository;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
+import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
@@ -41,6 +45,40 @@ class ProductIntegrationTest {
 
         assertThat(productRepository.findAll())
                 .isNotEmpty();
+    }
+
+    @Test
+    void auditing_setsCreatedAndUpdatedAt() {
+        Product product = newProduct("Stapler", "Office stapler", "3.50");
+        Product saved = productRepository.saveAndFlush(product);
+
+        assertThat(saved.getCreatedAt()).isNotNull();
+        assertThat(saved.getUpdatedAt()).isNotNull();
+
+        Instant createdAt = saved.getCreatedAt();
+        saved.setDescription("Office stapler - updated");
+        Product updated = productRepository.saveAndFlush(saved);
+
+        assertThat(updated.getUpdatedAt()).isNotNull();
+        assertThat(updated.getUpdatedAt()).isAfterOrEqualTo(createdAt);
+    }
+
+    @Test
+    void patch_updatesOnlyProvidedFields() throws Exception {
+        Product product = newProduct("Lamp", "Desk lamp", "12.50");
+        Product saved = productRepository.saveAndFlush(product);
+        UUID id = saved.getId();
+
+        mockMvc.perform(patch("/products/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"price\":15.00}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.price").value(15.00))
+                .andExpect(jsonPath("$.name").value("Lamp"));
+
+        Product updated = productRepository.findById(id).orElseThrow();
+        assertThat(updated.getPrice()).isEqualByComparingTo("15.00");
+        assertThat(updated.getName()).isEqualTo("Lamp");
     }
 
     private static Product newProduct(String name, String description, String price) {

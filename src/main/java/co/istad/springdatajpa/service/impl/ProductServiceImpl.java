@@ -1,6 +1,7 @@
 package co.istad.springdatajpa.service.impl;
 
 import co.istad.springdatajpa.dto.ProductCreateRequest;
+import co.istad.springdatajpa.dto.ProductPatchRequest;
 import co.istad.springdatajpa.dto.ProductResponse;
 import co.istad.springdatajpa.dto.ProductUpdateRequest;
 import co.istad.springdatajpa.entity.Product;
@@ -32,6 +33,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductResponse findById(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+        return productMapper.toResponse(product);
+    }
+
+    @Override
     @Transactional
     public ProductResponse create(ProductCreateRequest request) {
         Product product = productMapper.toEntity(request);
@@ -46,5 +54,23 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
         productMapper.updateEntity(request, product);
         return productMapper.toResponse(product);
+    }
+
+    @Override
+    @Transactional
+    public ProductResponse patch(UUID id, ProductPatchRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+        productMapper.patchEntity(request, product);
+        return productMapper.toResponse(product);
+    }
+
+    @Override
+    @Transactional
+    public void delete(UUID id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found: " + id);
+        }
+        productRepository.deleteById(id);
     }
 }

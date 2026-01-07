@@ -40,3 +40,8 @@ out/
 .env
 .env.file
 .env.example
+
+# AI assistant instructions (local)
+.claude/
+CLAUDE.md
+AGENTS.md

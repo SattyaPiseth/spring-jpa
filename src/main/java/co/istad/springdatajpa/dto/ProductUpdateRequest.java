@@ -13,7 +13,7 @@ public record ProductUpdateRequest(
         @Size(max = 2000)
         String description,
         @NotNull
-        @DecimalMin(value = "0.00", inclusive = true)
+        @DecimalMin(value = "0.00", inclusive = false)
         BigDecimal price
 ) {
 }

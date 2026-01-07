@@ -2,6 +2,7 @@ package co.istad.springdatajpa.controller;
 
 import co.istad.springdatajpa.dto.ProductResponse;
 import co.istad.springdatajpa.dto.ProductCreateRequest;
+import co.istad.springdatajpa.dto.ProductPatchRequest;
 import co.istad.springdatajpa.dto.ProductUpdateRequest;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.config.SpringDataWebConfig;
@@ -30,8 +31,11 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -73,6 +77,45 @@ class ProductControllerTest {
                         .content(requestJson("Mouse", "Wireless", "49.99")))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Mouse"));
+    }
+
+    @Test
+    void createProduct_zeroPrice_returns400() throws Exception {
+        mockMvc.perform(post("/products")
+                        .contentType(JSON)
+                        .content("{\"name\":\"Mouse\",\"description\":\"Wireless\",\"price\":0.00}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.errors").isArray());
+    }
+
+    @Test
+    void getProduct_success_returns200() throws Exception {
+        UUID id = UUID.randomUUID();
+        ProductResponse response = new ProductResponse(
+                id,
+                "Chair",
+                "Office",
+                new BigDecimal("89.99"),
+                CREATED_AT,
+                UPDATED_AT
+        );
+        when(productService.findById(id)).thenReturn(response);
+
+        mockMvc.perform(get("/products/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id.toString()))
+                .andExpect(jsonPath("$.name").value("Chair"));
+    }
+
+    @Test
+    void getProduct_notFound_returns404() throws Exception {
+        UUID id = UUID.randomUUID();
+        when(productService.findById(id)).thenThrow(new ResourceNotFoundException("Product not found: " + id));
+
+        mockMvc.perform(get("/products/{id}", id))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
     }
 
     @Test
@@ -224,6 +267,92 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.errors").isArray())
                 .andExpect(jsonPath("$.errors").value(hasItem(containsString("name"))));
+    }
+
+    @Test
+    void updateProduct_zeroPrice_returns400() throws Exception {
+        UUID id = UUID.randomUUID();
+        mockMvc.perform(put("/products/{id}", id)
+                        .contentType(JSON)
+                        .content("{\"name\":\"Monitor\",\"description\":\"4K\",\"price\":0.00}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.errors").isArray());
+    }
+
+    @Test
+    void patchProduct_success_returns200() throws Exception {
+        UUID id = UUID.randomUUID();
+        ProductResponse response = new ProductResponse(
+                id,
+                "Desk",
+                "Standing desk",
+                new BigDecimal("399.00"),
+                CREATED_AT,
+                UPDATED_AT
+        );
+        when(productService.patch(eq(id), any(ProductPatchRequest.class))).thenReturn(response);
+
+        mockMvc.perform(patch("/products/{id}", id)
+                        .contentType(JSON)
+                        .content("{\"name\":\"Desk\",\"price\":399.00}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Desk"))
+                .andExpect(jsonPath("$.price").value(399.00));
+    }
+
+    @Test
+    void patchProduct_emptyPayload_returns400() throws Exception {
+        UUID id = UUID.randomUUID();
+        mockMvc.perform(patch("/products/{id}", id)
+                        .contentType(JSON)
+                        .content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.errors").isArray());
+    }
+
+    @Test
+    void patchProduct_invalidPrice_returns400() throws Exception {
+        UUID id = UUID.randomUUID();
+        mockMvc.perform(patch("/products/{id}", id)
+                        .contentType(JSON)
+                        .content("{\"price\":0.00}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.errors").isArray());
+    }
+
+    @Test
+    void patchProduct_notFound_returns404() throws Exception {
+        UUID id = UUID.randomUUID();
+        when(productService.patch(eq(id), any(ProductPatchRequest.class)))
+                .thenThrow(new ResourceNotFoundException("Product not found: " + id));
+
+        mockMvc.perform(patch("/products/{id}", id)
+                        .contentType(JSON)
+                        .content("{\"name\":\"Desk\"}"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void deleteProduct_success_returns204() throws Exception {
+        UUID id = UUID.randomUUID();
+        mockMvc.perform(delete("/products/{id}", id))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void deleteProduct_notFound_returns404() throws Exception {
+        UUID id = UUID.randomUUID();
+        doThrow(new ResourceNotFoundException("Product not found: " + id))
+                .when(productService)
+                .delete(id);
+
+        mockMvc.perform(delete("/products/{id}", id))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
     }
 
     private static ProductResponse newResponse(String name, String description, String price) {

@@ -3,6 +3,7 @@ package co.istad.springdatajpa.controller;
 import co.istad.springdatajpa.dto.ProductCreateRequest;
 import co.istad.springdatajpa.dto.ProductResponse;
 import co.istad.springdatajpa.dto.ProductUpdateRequest;
+import co.istad.springdatajpa.dto.ProductPatchRequest;
 import co.istad.springdatajpa.service.ProductService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +58,11 @@ public class ProductController {
         return productService.findAll(pageable);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable UUID id) {
+        return ResponseEntity.ok(productService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductCreateRequest request) {
         ProductResponse response = productService.create(request);
@@ -68,6 +76,21 @@ public class ProductController {
     ) {
         ProductResponse response = productService.update(id, request);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProductResponse> patchProduct(
+            @PathVariable UUID id,
+            @Valid @RequestBody ProductPatchRequest request
+    ) {
+        ProductResponse response = productService.patch(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     private Sort parseSort(String sort) {
