@@ -28,6 +28,7 @@ to reduce accidental mutation after validation.
 Runs the default test suite with the embedded H2 database configured in
 `src/test/resources/application-test.yml` (in-memory `qa_db`).
 This profile sets the H2 JDBC URL, username, password, and `ddl-auto`.
+These values are test-only placeholders.
 
 `application-test.yml`:
 ```yaml
@@ -113,6 +114,7 @@ tasks.register('integrationTest', Test) {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     systemProperty 'it.tc', System.getProperty('it.tc', 'true')
+    systemProperty 'spring.profiles.active', 'it'
     shouldRunAfter tasks.named('test')
     useJUnitPlatform()
 }

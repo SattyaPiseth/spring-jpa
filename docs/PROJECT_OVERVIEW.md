@@ -78,6 +78,8 @@ Controller -> Service -> Repository
 ### Testcontainers (PostgreSQL, opt-in)
 - `src/integrationTest/java` + `integrationTest` Gradle task.
 - Docker required.
+- Gradle sets `spring.profiles.active=it` for integration tests; the profile lives in
+  `src/integrationTest/resources/application-it.yml` to quiet noisy logs.
 - Run with:
   - PowerShell: `./gradlew --% -Dit.tc=true clean integrationTest`
   - Git Bash/CMD: `./gradlew -Dit.tc=true clean integrationTest`
@@ -95,6 +97,7 @@ Controller -> Service -> Repository
 ## Important Constraints
 - No direct entity exposure in API responses.
 - No secrets committed; use environment variables for real credentials.
+- Test-only credentials in `application-test.yml` are placeholders for local runs.
 - Keep endpoints backward compatible unless explicitly versioned.
 
 ## External Dependencies
