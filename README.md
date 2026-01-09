@@ -11,6 +11,11 @@
 ./gradlew clean test
 ```
 
+## Project Overview
+
+For architecture, configuration, and testing details, see:
+`docs/PROJECT_OVERVIEW.md`.
+
 ## DTOs
 
 Request/response DTOs are implemented as Java records for immutability and
