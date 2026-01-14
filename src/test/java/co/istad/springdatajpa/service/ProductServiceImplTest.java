@@ -12,6 +12,7 @@ import co.istad.springdatajpa.dto.ProductUpdateRequest;
 import co.istad.springdatajpa.entity.Product;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.mapper.ProductMapper;
+import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
 import co.istad.springdatajpa.service.impl.ProductServiceImpl;
 import java.math.BigDecimal;
@@ -33,6 +34,9 @@ class ProductServiceImplTest {
     @Mock
     private ProductMapper productMapper;
 
+    @Mock
+    private CategoryRepository categoryRepository;
+
     @InjectMocks
     private ProductServiceImpl productService;
 
@@ -45,6 +49,7 @@ class ProductServiceImplTest {
                 "Book",
                 "Hardcover",
                 new BigDecimal("19.99"),
+                null,
                 Instant.parse("2025-01-01T00:00:00Z"),
                 Instant.parse("2025-01-02T00:00:00Z")
         );
@@ -70,7 +75,7 @@ class ProductServiceImplTest {
         UUID id = UUID.randomUUID();
         when(productRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> productService.update(id, new ProductUpdateRequest("A", "B", BigDecimal.ONE)))
+        assertThatThrownBy(() -> productService.update(id, new ProductUpdateRequest("A", "B", BigDecimal.ONE, null)))
                 .isInstanceOf(ResourceNotFoundException.class);
     }
 
@@ -104,7 +109,7 @@ class ProductServiceImplTest {
 
     @Test
     void create_success_mapsAndSaves() {
-        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"));
+        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"), null);
         Product product = new Product();
         Product saved = new Product();
         ProductResponse response = new ProductResponse(
@@ -112,6 +117,7 @@ class ProductServiceImplTest {
                 "Name",
                 "Desc",
                 new BigDecimal("2.50"),
+                null,
                 Instant.parse("2025-01-01T00:00:00Z"),
                 Instant.parse("2025-01-02T00:00:00Z")
         );

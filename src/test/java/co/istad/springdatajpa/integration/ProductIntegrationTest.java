@@ -6,7 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
+import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -29,6 +31,9 @@ class ProductIntegrationTest {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Test
     void listProducts_smoke() throws Exception {
@@ -81,11 +86,43 @@ class ProductIntegrationTest {
         assertThat(updated.getName()).isEqualTo("Lamp");
     }
 
+    @Test
+    void listProducts_withCategoryFilter_returnsOnlyMatching() throws Exception {
+        Category category = newCategory("Laptops", "Laptop category");
+        Category savedCategory = categoryRepository.saveAndFlush(category);
+
+        Product laptop = newProduct("Laptop A", "Office laptop", "799.00");
+        laptop.setCategory(savedCategory);
+        productRepository.saveAndFlush(laptop);
+        productRepository.saveAndFlush(newProduct("Mouse B", "Wireless mouse", "19.00"));
+
+        mockMvc.perform(get("/products")
+                        .param("categoryId", savedCategory.getId().toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content.length()").value(1))
+                .andExpect(jsonPath("$.content[0].name").value("Laptop A"));
+    }
+
+    @Test
+    void listProducts_categoryNotFound_returns404() throws Exception {
+        mockMvc.perform(get("/products")
+                        .param("categoryId", UUID.randomUUID().toString()))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
+    }
+
     private static Product newProduct(String name, String description, String price) {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
         product.setPrice(new BigDecimal(price));
         return product;
+    }
+
+    private static Category newCategory(String name, String description) {
+        Category category = new Category();
+        category.setName(name);
+        category.setDescription(description);
+        return category;
     }
 }

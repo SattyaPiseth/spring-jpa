@@ -4,9 +4,11 @@ import co.istad.springdatajpa.dto.ProductCreateRequest;
 import co.istad.springdatajpa.dto.ProductPatchRequest;
 import co.istad.springdatajpa.dto.ProductResponse;
 import co.istad.springdatajpa.dto.ProductUpdateRequest;
+import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.mapper.ProductMapper;
+import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
 import co.istad.springdatajpa.service.ProductService;
 import org.springframework.data.domain.Page;
@@ -20,16 +22,24 @@ import java.util.UUID;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
         this.productMapper = productMapper;
     }
 
     @Override
-    public Page<ProductResponse> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable).map(productMapper::toResponse);
+    public Page<ProductResponse> findAll(Pageable pageable, UUID categoryId) {
+        if (categoryId == null) {
+            return productRepository.findAll(pageable).map(productMapper::toResponse);
+        }
+        if (!categoryRepository.existsById(categoryId)) {
+            throw new ResourceNotFoundException("Category not found: " + categoryId);
+        }
+        return productRepository.findAllByCategoryId(categoryId, pageable).map(productMapper::toResponse);
     }
 
     @Override
@@ -43,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductResponse create(ProductCreateRequest request) {
         Product product = productMapper.toEntity(request);
+        applyCategoryIfPresent(product, request.categoryId());
         Product saved = productRepository.save(product);
         return productMapper.toResponse(saved);
     }
@@ -53,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
         productMapper.updateEntity(request, product);
+        applyCategoryIfPresent(product, request.categoryId());
         return productMapper.toResponse(product);
     }
 
@@ -72,5 +84,14 @@ public class ProductServiceImpl implements ProductService {
             throw new ResourceNotFoundException("Product not found: " + id);
         }
         productRepository.deleteById(id);
+    }
+
+    private void applyCategoryIfPresent(Product product, UUID categoryId) {
+        if (categoryId == null) {
+            return;
+        }
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + categoryId));
+        product.setCategory(category);
     }
 }

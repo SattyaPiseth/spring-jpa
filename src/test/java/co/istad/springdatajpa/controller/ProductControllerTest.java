@@ -97,6 +97,7 @@ class ProductControllerTest {
                 "Chair",
                 "Office",
                 new BigDecimal("89.99"),
+                null,
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -122,7 +123,7 @@ class ProductControllerTest {
     void listProducts_returnsPage() throws Exception {
         ProductResponse response = newResponse("Keyboard", "Mechanical", "99.99");
         Page<ProductResponse> page = new PageImpl<>(List.of(response), PageRequest.of(0, 20), 1);
-        when(productService.findAll(any(Pageable.class))).thenReturn(page);
+        when(productService.findAll(any(Pageable.class), eq(null))).thenReturn(page);
 
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
@@ -138,7 +139,7 @@ class ProductControllerTest {
     void listProducts_capturesPageableAndSort() throws Exception {
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
         Page<ProductResponse> page = new PageImpl<>(List.of(), PageRequest.of(2, 5), 0);
-        when(productService.findAll(captor.capture())).thenReturn(page);
+        when(productService.findAll(captor.capture(), eq(null))).thenReturn(page);
 
         mockMvc.perform(get("/products")
                         .param("page", "2")
@@ -160,7 +161,7 @@ class ProductControllerTest {
         ProductResponse first = newResponse("Alpha", "A", "1.00");
         ProductResponse second = newResponse("Beta", "B", "2.00");
         Page<ProductResponse> page = new PageImpl<>(List.of(first, second), PageRequest.of(0, 20), 2);
-        when(productService.findAll(any(Pageable.class))).thenReturn(page);
+        when(productService.findAll(any(Pageable.class), eq(null))).thenReturn(page);
 
         mockMvc.perform(get("/products")
                         .param("sort", "name,asc"))
@@ -171,7 +172,7 @@ class ProductControllerTest {
 
     @Test
     void listProducts_outOfRangePage_returnsStablePage() throws Exception {
-        when(productService.findAll(any(Pageable.class)))
+        when(productService.findAll(any(Pageable.class), eq(null)))
                 .thenAnswer(invocation -> {
                     Pageable pageable = invocation.getArgument(0);
                     return new PageImpl<>(List.of(), pageable, 0);
@@ -198,8 +199,34 @@ class ProductControllerTest {
     }
 
     @Test
+    void listProducts_withCategoryFilter_returnsPage() throws Exception {
+        UUID categoryId = UUID.randomUUID();
+        ProductResponse response = newResponse("Keyboard", "Mechanical", "99.99");
+        Page<ProductResponse> page = new PageImpl<>(List.of(response), PageRequest.of(0, 20), 1);
+        when(productService.findAll(any(Pageable.class), eq(categoryId))).thenReturn(page);
+
+        mockMvc.perform(get("/products")
+                        .param("categoryId", categoryId.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].name").value("Keyboard"))
+                .andExpect(jsonPath("$.page.totalElements").value(1));
+    }
+
+    @Test
+    void listProducts_categoryNotFound_returns404() throws Exception {
+        UUID categoryId = UUID.randomUUID();
+        when(productService.findAll(any(Pageable.class), eq(categoryId)))
+                .thenThrow(new ResourceNotFoundException("Category not found: " + categoryId));
+
+        mockMvc.perform(get("/products")
+                        .param("categoryId", categoryId.toString()))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
     void listProducts_unexpectedError_returns500() throws Exception {
-        when(productService.findAll(any(Pageable.class))).thenThrow(new RuntimeException("boom"));
+        when(productService.findAll(any(Pageable.class), eq(null))).thenThrow(new RuntimeException("boom"));
 
         mockMvc.perform(get("/products"))
                 .andExpect(status().isInternalServerError())
@@ -245,6 +272,7 @@ class ProductControllerTest {
                 "Monitor",
                 "4K",
                 new BigDecimal("299.99"),
+                null,
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -288,6 +316,7 @@ class ProductControllerTest {
                 "Desk",
                 "Standing desk",
                 new BigDecimal("399.00"),
+                null,
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -361,6 +390,7 @@ class ProductControllerTest {
                 name,
                 description,
                 new BigDecimal(price),
+                null,
                 CREATED_AT,
                 UPDATED_AT
         );

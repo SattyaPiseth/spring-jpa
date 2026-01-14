@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface ProductService {
-    Page<ProductResponse> findAll(Pageable pageable);
+    Page<ProductResponse> findAll(Pageable pageable, UUID categoryId);
     ProductResponse findById(UUID id);
     ProductResponse create(ProductCreateRequest request);
     ProductResponse update(UUID id, ProductUpdateRequest request);
