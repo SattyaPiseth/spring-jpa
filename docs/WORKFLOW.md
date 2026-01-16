@@ -45,4 +45,4 @@ Before coding:
 
 Typical commands:
 - `./gradlew clean test`
-- `./gradlew --% -Dit.tc=true clean integrationTest`
+- `./gradlew --% -Dit.tc=true clean integrationTest` (Testcontainers opt-in)
