@@ -74,6 +74,7 @@ tasks.register('integrationTest', Test) {
 	group = 'verification'
 	testClassesDirs = sourceSets.integrationTest.output.classesDirs
 	classpath = sourceSets.integrationTest.runtimeClasspath
+	systemProperty 'it.tc', System.getProperty('it.tc', 'true')
 	systemProperty 'spring.profiles.active', 'it'
 	shouldRunAfter tasks.named('test')
 	useJUnitPlatform()

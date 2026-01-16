@@ -62,7 +62,7 @@ spring:
 
 Runs the Testcontainers suite in `src/integrationTest/java` using a real
 PostgreSQL container. Docker must be running. Tests are gated by
-`-Dit.tc=true`.
+`-Dit.tc=true` (the `integrationTest` task defaults this to `true`).
 
 Testcontainers uses dynamic datasource properties in `ProductContainerIT`:
 ```java
@@ -123,6 +123,7 @@ tasks.register('integrationTest', Test) {
     group = 'verification'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
+    systemProperty 'it.tc', System.getProperty('it.tc', 'true')
     systemProperty 'spring.profiles.active', 'it'
     shouldRunAfter tasks.named('test')
     useJUnitPlatform()

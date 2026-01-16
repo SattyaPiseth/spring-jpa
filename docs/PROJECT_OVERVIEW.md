@@ -84,7 +84,7 @@ Controller -> Service -> Repository
 ### Testcontainers (PostgreSQL, opt-in)
 - `src/integrationTest/java` + `integrationTest` Gradle task.
 - Docker required.
-- Gradle sets `spring.profiles.active=it` for integration tests; the profile lives in
+- Gradle defaults `it.tc=true` and sets `spring.profiles.active=it` for integration tests; the profile lives in
   `src/integrationTest/resources/application-it.yml` to quiet noisy logs.
 - Run with:
   - PowerShell: `./gradlew --% -Dit.tc=true clean integrationTest`
