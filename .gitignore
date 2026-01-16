@@ -40,7 +40,6 @@ out/
 # Local environment variables
 .env
 .env.file
-.env.example
 
 # AI assistant instructions (local)
 .claude/

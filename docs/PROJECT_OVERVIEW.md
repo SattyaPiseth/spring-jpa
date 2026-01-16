@@ -102,7 +102,7 @@ Controller -> Service -> Repository
 
 ## Important Constraints
 - No direct entity exposure in API responses.
-- No secrets committed; use environment variables for real credentials.
+- No secrets committed; use environment variables or a local `.env.file` (ignored by git).
 - Test-only credentials in `application-test.yml` are placeholders for local runs.
 - Keep endpoints backward compatible unless explicitly versioned.
 

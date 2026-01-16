@@ -1,9 +1,11 @@
 spring:
+  config:
+    import: optional:file:.env.file[.properties]
   datasource:
     url: jdbc:h2:mem:qa_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
     driver-class-name: org.h2.Driver
-    username: sattya_piseth
-    password: P@$5Word
+    username: ${TEST_DB_USER:sa}
+    password: ${TEST_DB_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: create-drop

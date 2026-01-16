@@ -19,6 +19,12 @@ For architecture, configuration, and testing details, see:
 For workflow rules (Codex + Context7 + OpenSpec), see:
 `docs/WORKFLOW.md`.
 
+## Local Environment
+
+Local test credentials can be set in `.env.file` (ignored by git). See
+`.env.example` for the expected keys, including `TEST_DB_USER` and
+`TEST_DB_PASSWORD`. Do not commit `.env.file`.
+
 ## DTOs
 
 Request/response DTOs are implemented as Java records for immutability and
@@ -31,7 +37,8 @@ to reduce accidental mutation after validation.
 Runs the default test suite with the embedded H2 database configured in
 `src/test/resources/application-test.yml` (in-memory `qa_db`).
 This profile sets the H2 JDBC URL, username, password, and `ddl-auto`.
-These values are test-only placeholders.
+The username/password can be supplied via `.env.file` or environment variables.
+See `.env.example` for local defaults.
 
 `application-test.yml`:
 ```yaml
@@ -39,8 +46,8 @@ spring:
   datasource:
     url: jdbc:h2:mem:qa_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
     driver-class-name: org.h2.Driver
-    username: sattya_piseth
-    password: P@$5Word
+    username: ${TEST_DB_USER:sa}
+    password: ${TEST_DB_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -116,7 +123,6 @@ tasks.register('integrationTest', Test) {
     group = 'verification'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
-    systemProperty 'it.tc', System.getProperty('it.tc', 'true')
     systemProperty 'spring.profiles.active', 'it'
     shouldRunAfter tasks.named('test')
     useJUnitPlatform()
