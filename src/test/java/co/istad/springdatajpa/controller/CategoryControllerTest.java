@@ -13,6 +13,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.hamcrest.Matchers.not;
 
 import co.istad.springdatajpa.config.SpringDataWebConfig;
 import co.istad.springdatajpa.dto.CategoryCreateRequest;
@@ -178,5 +180,32 @@ class CategoryControllerTest {
         mockMvc.perform(delete("/categories/{id}", id))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void listCategories_unexpectedError_returns500() throws Exception {
+        when(categoryService.findAll(any())).thenThrow(new RuntimeException("boom"));
+
+        mockMvc.perform(get("/categories"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.message").value("Unexpected error occurred"))
+                .andExpect(jsonPath("$.status").value(500))
+                .andExpect(jsonPath("$.path").value("/categories"))
+                .andExpect(jsonPath("$.message").value(not(containsString("Exception"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("StackTrace"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("at "))))
+                .andExpect(jsonPath("$.message").value(not(containsString("org."))))
+                .andExpect(jsonPath("$.message").value(not(containsString("com."))))
+                .andExpect(jsonPath("$.message").value(not(containsString("SELECT"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("INSERT"))))
+                .andExpect(jsonPath("$.message").value(not(containsString("UPDATE"))))
+                .andExpect(content().string(not(containsString("Exception"))))
+                .andExpect(content().string(not(containsString("StackTrace"))))
+                .andExpect(content().string(not(containsString("at "))))
+                .andExpect(content().string(not(containsString("org."))))
+                .andExpect(content().string(not(containsString("com."))))
+                .andExpect(content().string(not(containsString("SELECT"))))
+                .andExpect(content().string(not(containsString("INSERT"))))
+                .andExpect(content().string(not(containsString("UPDATE"))));
     }
 }

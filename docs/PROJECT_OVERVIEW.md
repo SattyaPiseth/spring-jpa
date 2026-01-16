@@ -5,6 +5,12 @@
 - Demonstrate stable pagination, validation, and error handling.
 - Offer a reliable testing strategy (fast H2 tests + optional Testcontainers).
 
+## Workflow
+- Codex for implementation and tests.
+- Context7 for official Spring documentation references.
+- OpenSpec for proposal/specs before behavior changes.
+- See `docs/WORKFLOW.md` for the full process.
+
 ## Tech Stack
 - Java 21
 - Spring Boot (Gradle)

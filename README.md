@@ -16,6 +16,9 @@
 For architecture, configuration, and testing details, see:
 `docs/PROJECT_OVERVIEW.md`.
 
+For workflow rules (Codex + Context7 + OpenSpec), see:
+`docs/WORKFLOW.md`.
+
 ## DTOs
 
 Request/response DTOs are implemented as Java records for immutability and

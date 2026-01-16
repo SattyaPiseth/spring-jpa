@@ -1,6 +1,6 @@
 # Spring Boot Official Context
 
-Last refreshed: 2026-01-14 14:55:54 (local time)
+Last refreshed: 2026-01-15 10:19:39 (local time)
 
 ## Track 1 — Latest stable Spring Boot (recommended target)
 
@@ -25,6 +25,7 @@ Last refreshed: 2026-01-14 14:55:54 (local time)
 | --- | --- | --- |
 | Spring Boot docs index | https://docs.spring.io/spring-boot/ | Lists Stable and Snapshot versions (4.0.1 stable, 4.1.0-SNAPSHOT) |
 | Spring Boot 4.0 docs index | https://docs.spring.io/spring-boot/4.0/index.html | Versioned docs landing page for 4.0.x |
+| Spring Boot 4.0 reference | https://docs.spring.io/spring-boot/4.0/reference/ | Reference documentation (4.0.x) |
 | Spring Boot v4.0.1 release | https://github.com/spring-projects/spring-boot/releases/tag/v4.0.1 | Official release tag for 4.0.1 |
 
 ## Verified facts relevant to this repo
