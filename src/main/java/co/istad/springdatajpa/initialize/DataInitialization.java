@@ -1,14 +1,15 @@
 package co.istad.springdatajpa.initialize;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
@@ -16,20 +17,36 @@ import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
 
 @Component
-@Profile("dev")
+@Profile({"dev","local"})
 public class DataInitialization implements ApplicationRunner {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final boolean seedEnabled;
 
     // Required Args Constructor
-    public DataInitialization(CategoryRepository categoryRepository, ProductRepository productRepository) {
+    public DataInitialization(
+            CategoryRepository categoryRepository,
+            ProductRepository productRepository,
+            @Value("${app.seed.enabled:true}") boolean seedEnabled
+    ) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.seedEnabled = seedEnabled;
     }
 
     @Override
     public void run(ApplicationArguments args) {
+        if (!seedEnabled) {
+            return;
+        }
         Map<String, Category> categories = seedCategories();
+        seedProducts(categories);
+    }
+
+    private void seedProducts(Map<String, Category> categories) {
+        if (productRepository.count() > 0) {
+            return;
+        }
         List<Product> products = List.of(
                 newProduct("Acer Aspire 5", "15.6-inch laptop, Core i5, 8GB RAM, 512GB SSD", "579.00", categories.get("Laptops")),
                 newProduct("ASUS VivoBook 14", "14-inch laptop, Ryzen 5, 8GB RAM, 512GB SSD", "629.00", categories.get("Laptops")),
@@ -115,8 +132,13 @@ public class DataInitialization implements ApplicationRunner {
                 newCategory("UPS", "Power backup UPS devices for desktops and office"),
                 newCategory("Power Strips / Surge Protectors", "Electrical protection for devices")
         );
-        return categoryRepository.saveAll(categories).stream()
-                .collect(Collectors.toMap(Category::getName, category -> category));
+        Map<String, Category> persisted = new HashMap<>();
+        for (Category category : categories) {
+            Category saved = categoryRepository.findByName(category.getName())
+                    .orElseGet(() -> categoryRepository.save(category));
+            persisted.put(saved.getName(), saved);
+        }
+        return persisted;
     }
 
     private Category newCategory(String name, String description) {

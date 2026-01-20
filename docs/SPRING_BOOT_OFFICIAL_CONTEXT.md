@@ -1,6 +1,6 @@
 # Spring Boot Official Context
 
-Last refreshed: 2026-01-16 16:20:15 (local time)
+Last refreshed: 2026-01-17 17:25:41 (local time)
 
 ## Track 1 — Latest stable Spring Boot (recommended target)
 

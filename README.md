@@ -11,6 +11,20 @@
 ./gradlew clean test
 ```
 
+## Local H2 (file-based)
+
+Run the app with a persistent H2 database on disk:
+
+```
+SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
+```
+
+H2 Console:
+- URL: `http://localhost:8080/h2-console`
+- JDBC URL: `jdbc:h2:file:./data/qa_db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1`
+- User: `${TEST_DB_USER:sa}`
+- Password: `${TEST_DB_PASSWORD:}`
+
 ## Project Overview
 
 For architecture, configuration, and testing details, see:
@@ -24,6 +38,9 @@ For workflow rules (Codex + Context7 + OpenSpec), see:
 Local test credentials can be set in `.env.file` (ignored by git). See
 `.env.example` for the expected keys, including `TEST_DB_USER` and
 `TEST_DB_PASSWORD`. Do not commit `.env.file`.
+
+Seed data for local/dev can be toggled with `app.seed.enabled=true|false`
+in `application-local.yml` or `application-dev.yml`.
 
 ## DTOs
 

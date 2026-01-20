@@ -66,8 +66,10 @@ Controller -> Service -> Repository
 ## Configuration & Profiles
 - `application.yml` holds shared defaults.
 - `application-dev.yml`: `ddl-auto=create-drop`.
+- `application-local.yml`: file-based H2 database for local runs.
 - `application-staging.yml` and `application-prod.yml`: `ddl-auto=validate`.
 - OSIV disabled (`spring.jpa.open-in-view=false`).
+- `app.seed.enabled` controls local/dev seed data.
 
 ## Testing Strategy
 ### MVC Slice Tests (`src/test/java`)
