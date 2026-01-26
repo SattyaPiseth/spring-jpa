@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Page<CategoryResponse> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable).map(categoryMapper::toResponse);
+        return categoryRepository.findAll(pageable).map(categoryMapper::toResponseWithoutProducts);
     }
 
     @Override

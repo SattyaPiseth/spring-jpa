@@ -58,6 +58,7 @@ class CategoryControllerTest {
                 UUID.randomUUID(),
                 "Office",
                 "Office supplies",
+                List.of(),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -67,10 +68,32 @@ class CategoryControllerTest {
         mockMvc.perform(get("/categories"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].name").value("Office"))
+                .andExpect(jsonPath("$.content[0].products").isArray())
+                .andExpect(jsonPath("$.content[0].products.length()").value(0))
                 .andExpect(jsonPath("$.page.size").value(20))
                 .andExpect(jsonPath("$.page.number").value(0))
                 .andExpect(jsonPath("$.page.totalElements").value(1))
                 .andExpect(jsonPath("$.page.totalPages").value(1));
+    }
+
+    @Test
+    void getCategory_includesProductsSummary() throws Exception {
+        UUID id = UUID.randomUUID();
+        CategoryResponse response = new CategoryResponse(
+                id,
+                "Office",
+                "Office supplies",
+                List.of(new co.istad.springdatajpa.dto.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
+                CREATED_AT,
+                UPDATED_AT
+        );
+        when(categoryService.findById(id)).thenReturn(response);
+
+        mockMvc.perform(get("/categories/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id.toString()))
+                .andExpect(jsonPath("$.products").isArray())
+                .andExpect(jsonPath("$.products[0].name").value("Pen"));
     }
 
     @Test
@@ -90,6 +113,7 @@ class CategoryControllerTest {
                 UUID.randomUUID(),
                 "Office",
                 "Office supplies",
+                List.of(new co.istad.springdatajpa.dto.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -99,7 +123,9 @@ class CategoryControllerTest {
                         .contentType(JSON)
                         .content("{\"name\":\"Office\",\"description\":\"Office supplies\"}"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name").value("Office"));
+                .andExpect(jsonPath("$.name").value("Office"))
+                .andExpect(jsonPath("$.products").isArray())
+                .andExpect(jsonPath("$.products[0].name").value("Pen"));
     }
 
     @Test
@@ -145,6 +171,7 @@ class CategoryControllerTest {
                 id,
                 "Office",
                 "Updated",
+                List.of(),
                 CREATED_AT,
                 UPDATED_AT
         );

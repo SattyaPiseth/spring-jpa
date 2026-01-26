@@ -3,7 +3,6 @@ spring:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:spring_data_jpa}
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:}
-
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -12,3 +11,5 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+#server:
+#  port: 9090

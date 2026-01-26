@@ -1,10 +1,13 @@
 package co.istad.springdatajpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -41,8 +44,23 @@ public class Product extends AuditedBaseEntity {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"products", "hibernateLazyInitializer", "handler"})
     private Category category;
+
+    public void setCategory(Category category) {
+        if (Objects.equals(this.category, category)) {
+            return;
+        }
+        Category old = this.category;
+        this.category = category;
+        if (old != null && old.getProducts() != null) {
+            old.getProducts().remove(this);
+        }
+        if (category != null && category.getProducts() != null && !category.getProducts().contains(this)) {
+            category.getProducts().add(this);
+        }
+    }
 
 }

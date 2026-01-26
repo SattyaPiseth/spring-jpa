@@ -30,17 +30,21 @@ Controller -> Service -> Repository
 ## Domain Model
 - Product entity with auditing fields:
   - createdAt, updatedAt, createdBy, updatedBy
+- Product -> Category is the owning side of the relationship.
+- Category -> Products is the inverse side for navigation.
 
 ## DTO Boundary
 - Request/response DTOs are Java records.
 - Entities are not returned directly from controllers.
 - Benefits: stable API contracts, safer validation, and reduced coupling.
+- Category responses include product summaries; product responses include category summaries to avoid recursion.
 
 ## Mapping
 - MapStruct interface mapper with `componentModel = "spring"`.
 - Explicit ignore mappings for audit fields.
 - Patch mapping uses `nullValuePropertyMappingStrategy = IGNORE` to preserve
   omitted fields.
+- List endpoints return empty product lists to avoid lazy-loading surprises.
 
 ## Validation
 - DTOs define validation rules (e.g., name length, price > 0).

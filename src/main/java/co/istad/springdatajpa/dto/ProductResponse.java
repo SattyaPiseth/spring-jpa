@@ -10,6 +10,7 @@ public record ProductResponse(
         String description,
         BigDecimal price,
         UUID categoryId,
+        CategorySummary category,
         Instant createdAt,
         Instant updatedAt
 ) {

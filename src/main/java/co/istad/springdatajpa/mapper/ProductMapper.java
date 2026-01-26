@@ -1,9 +1,12 @@
 package co.istad.springdatajpa.mapper;
 
+import co.istad.springdatajpa.dto.CategorySummary;
 import co.istad.springdatajpa.dto.ProductCreateRequest;
 import co.istad.springdatajpa.dto.ProductPatchRequest;
 import co.istad.springdatajpa.dto.ProductResponse;
+import co.istad.springdatajpa.dto.ProductSummary;
 import co.istad.springdatajpa.dto.ProductUpdateRequest;
+import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -16,6 +19,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface ProductMapper {
 
     @Mapping(target = "categoryId", source = "category.id")
+    @Mapping(target = "category", source = "category")
     ProductResponse toResponse(Product product);
 
     @Mapping(target = "id", ignore = true)
@@ -28,4 +32,8 @@ public interface ProductMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void patchEntity(ProductPatchRequest request, @MappingTarget Product product);
+
+    CategorySummary toSummary(Category category);
+
+    ProductSummary toSummary(Product product);
 }

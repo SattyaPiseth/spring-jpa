@@ -50,6 +50,7 @@ class ProductServiceImplTest {
                 "Hardcover",
                 new BigDecimal("19.99"),
                 null,
+                null,
                 Instant.parse("2025-01-01T00:00:00Z"),
                 Instant.parse("2025-01-02T00:00:00Z")
         );
@@ -117,6 +118,7 @@ class ProductServiceImplTest {
                 "Name",
                 "Desc",
                 new BigDecimal("2.50"),
+                null,
                 null,
                 Instant.parse("2025-01-01T00:00:00Z"),
                 Instant.parse("2025-01-02T00:00:00Z")

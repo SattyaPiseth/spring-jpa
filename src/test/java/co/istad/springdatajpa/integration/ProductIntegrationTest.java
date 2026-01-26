@@ -37,9 +37,18 @@ class ProductIntegrationTest {
 
     @Test
     void listProducts_smoke() throws Exception {
+        Category category = newCategory("Office", "Office supplies");
+        Category savedCategory = categoryRepository.saveAndFlush(category);
+
+        Product product = newProduct("Notebook", "A5 notebook", "2.99");
+        product.setCategory(savedCategory);
+        productRepository.saveAndFlush(product);
+
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content[0].categoryId").value(savedCategory.getId().toString()))
+                .andExpect(jsonPath("$.content[0].category.name").value("Office"))
                 .andExpect(jsonPath("$.page").exists());
     }
 
@@ -100,6 +109,7 @@ class ProductIntegrationTest {
                         .param("categoryId", savedCategory.getId().toString()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content.length()").value(1))
+                .andExpect(jsonPath("$.content[0].categoryId").value(savedCategory.getId().toString()))
                 .andExpect(jsonPath("$.content[0].name").value("Laptop A"));
     }
 
@@ -109,6 +119,64 @@ class ProductIntegrationTest {
                         .param("categoryId", UUID.randomUUID().toString()))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void getProduct_includesCategorySummary() throws Exception {
+        Category category = newCategory("Accessories", "Office accessories");
+        Category savedCategory = categoryRepository.saveAndFlush(category);
+
+        Product product = newProduct("Pen", "Ballpoint pen", "1.25");
+        product.setCategory(savedCategory);
+        Product savedProduct = productRepository.saveAndFlush(product);
+
+        mockMvc.perform(get("/products/{id}", savedProduct.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.category.id").value(savedCategory.getId().toString()))
+                .andExpect(jsonPath("$.category.name").value("Accessories"));
+    }
+
+    @Test
+    void getCategory_includesProductSummaries() throws Exception {
+        Category category = newCategory("Storage", "Storage devices");
+        Category savedCategory = categoryRepository.saveAndFlush(category);
+
+        Product product = newProduct("SSD", "NVMe SSD", "99.00");
+        product.setCategory(savedCategory);
+        productRepository.saveAndFlush(product);
+
+        mockMvc.perform(get("/categories/{id}", savedCategory.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.products").isArray())
+                .andExpect(jsonPath("$.products.length()").value(1))
+                .andExpect(jsonPath("$.products[0].name").value("SSD"));
+    }
+
+    @Test
+    void listCategories_productsEmptyByDefault() throws Exception {
+        Category category = newCategory("Cables", "Cables and adapters");
+        categoryRepository.saveAndFlush(category);
+
+        mockMvc.perform(get("/categories"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].products").isArray())
+                .andExpect(jsonPath("$.content[0].products.length()").value(0));
+    }
+
+    @Test
+    void bidirectional_helpers_keep_in_sync() {
+        Category category = newCategory("Accessories", "Office accessories");
+        Product product = newProduct("Pen", "Ballpoint pen", "1.25");
+
+        category.addProduct(product);
+
+        assertThat(product.getCategory()).isEqualTo(category);
+        assertThat(category.getProducts()).contains(product);
+
+        category.removeProduct(product);
+
+        assertThat(product.getCategory()).isNull();
+        assertThat(category.getProducts()).doesNotContain(product);
     }
 
     private static Product newProduct(String name, String description, String price) {

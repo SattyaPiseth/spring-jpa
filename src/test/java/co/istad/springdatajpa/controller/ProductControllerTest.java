@@ -98,6 +98,7 @@ class ProductControllerTest {
                 "Office",
                 new BigDecimal("89.99"),
                 null,
+                new co.istad.springdatajpa.dto.CategorySummary(UUID.randomUUID(), "Office"),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -106,7 +107,9 @@ class ProductControllerTest {
         mockMvc.perform(get("/products/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()))
-                .andExpect(jsonPath("$.name").value("Chair"));
+                .andExpect(jsonPath("$.name").value("Chair"))
+                .andExpect(jsonPath("$.category.id").exists())
+                .andExpect(jsonPath("$.category.name").value("Office"));
     }
 
     @Test
@@ -121,13 +124,24 @@ class ProductControllerTest {
 
     @Test
     void listProducts_returnsPage() throws Exception {
-        ProductResponse response = newResponse("Keyboard", "Mechanical", "99.99");
+        ProductResponse response = new ProductResponse(
+                UUID.randomUUID(),
+                "Keyboard",
+                "Mechanical",
+                new BigDecimal("99.99"),
+                null,
+                new co.istad.springdatajpa.dto.CategorySummary(UUID.randomUUID(), "Office"),
+                CREATED_AT,
+                UPDATED_AT
+        );
         Page<ProductResponse> page = new PageImpl<>(List.of(response), PageRequest.of(0, 20), 1);
         when(productService.findAll(any(Pageable.class), eq(null))).thenReturn(page);
 
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].name").value("Keyboard"))
+                .andExpect(jsonPath("$.content[0].category.id").exists())
+                .andExpect(jsonPath("$.content[0].category.name").value("Office"))
                 .andExpect(jsonPath("$.page").exists())
                 .andExpect(jsonPath("$.page.size").value(20))
                 .andExpect(jsonPath("$.page.number").value(0))
@@ -273,6 +287,7 @@ class ProductControllerTest {
                 "4K",
                 new BigDecimal("299.99"),
                 null,
+                null,
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -316,6 +331,7 @@ class ProductControllerTest {
                 "Desk",
                 "Standing desk",
                 new BigDecimal("399.00"),
+                null,
                 null,
                 CREATED_AT,
                 UPDATED_AT
@@ -390,6 +406,7 @@ class ProductControllerTest {
                 name,
                 description,
                 new BigDecimal(price),
+                null,
                 null,
                 CREATED_AT,
                 UPDATED_AT

@@ -41,6 +41,21 @@ Before coding:
 2) Docs validation (Context7) -> update context file if needed
 3) Implementation (Codex) -> tests -> report diffs
 
+## Agent Procedure (Required)
+
+1) Read `openspec/project.md`
+2) Run `openspec list` and `openspec list --specs`
+3) If change requires OpenSpec:
+   - Create proposal + spec deltas
+   - Run `openspec validate <change-id> --strict`
+   - Wait for approval before coding
+4) If Context7 facts are needed:
+   - Query official sources
+   - Update `docs/SPRING_BOOT_OFFICIAL_CONTEXT.md`
+5) Implement with minimal diffs
+6) Run tests (`./gradlew clean test`, `./gradlew --% -Dit.tc=true clean integrationTest` when needed)
+7) Report changes and test results
+
 ## Verification
 
 Typical commands:

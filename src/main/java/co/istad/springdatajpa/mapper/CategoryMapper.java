@@ -12,10 +12,13 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = ProductMapper.class)
 public interface CategoryMapper {
 
     CategoryResponse toResponse(Category category);
+
+    @Mapping(target = "products", expression = "java(java.util.List.of())")
+    CategoryResponse toResponseWithoutProducts(Category category);
 
     @Mapping(target = "id", ignore = true)
     Category toEntity(CategoryCreateRequest request);
