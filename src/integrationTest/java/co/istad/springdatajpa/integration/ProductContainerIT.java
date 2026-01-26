@@ -16,6 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.AfterEach;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -24,6 +27,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureMockMvc
 @Testcontainers
 @EnabledIfSystemProperty(named = "it.tc", matches = "true")
+@Transactional
 class ProductContainerIT {
 
     @Container
@@ -42,6 +46,12 @@ class ProductContainerIT {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @AfterEach
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    void cleanDatabase() {
+        productRepository.deleteAll();
+    }
 
     @Test
     void listProducts_smoke() throws Exception {

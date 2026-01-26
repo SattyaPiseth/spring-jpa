@@ -18,12 +18,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.AfterEach;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 class ProductIntegrationTest {
 
     @Autowired
@@ -35,9 +39,17 @@ class ProductIntegrationTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @AfterEach
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    void cleanDatabase() {
+        productRepository.deleteAll();
+        categoryRepository.deleteAll();
+    }
+
     @Test
     void listProducts_smoke() throws Exception {
-        Category category = newCategory("Office", "Office supplies");
+        String categoryName = "Office-" + UUID.randomUUID();
+        Category category = newCategory(categoryName, "Office supplies");
         Category savedCategory = categoryRepository.saveAndFlush(category);
 
         Product product = newProduct("Notebook", "A5 notebook", "2.99");
@@ -48,7 +60,7 @@ class ProductIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").isArray())
                 .andExpect(jsonPath("$.content[0].categoryId").value(savedCategory.getId().toString()))
-                .andExpect(jsonPath("$.content[0].category.name").value("Office"))
+                .andExpect(jsonPath("$.content[0].category.name").value(categoryName))
                 .andExpect(jsonPath("$.page").exists());
     }
 

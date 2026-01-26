@@ -53,7 +53,7 @@ public class CategoryController {
             @RequestParam(defaultValue = "20") @Min(MIN_SIZE) @Max(MAX_SIZE) int size,
             @RequestParam(defaultValue = "createdAt,desc") String sort
     ) {
-        PageRequest pageable = PageRequest.of(page, size, parseSort(sort));
+        PageRequest pageable = ControllerUtils.pageRequest(page, size, sort, ALLOWED_SORT_FIELDS, defaultSort());
         return categoryService.findAll(pageable);
     }
 
@@ -90,26 +90,6 @@ public class CategoryController {
     public ResponseEntity<Void> deleteCategory(@PathVariable UUID id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    private Sort parseSort(String sort) {
-        if (sort == null || sort.isBlank()) {
-            return defaultSort();
-        }
-        String[] parts = sort.split(",", 2);
-        String property = parts[0].trim();
-        if (!ALLOWED_SORT_FIELDS.contains(property)) {
-            return defaultSort();
-        }
-        if (parts.length == 2) {
-            String direction = parts[1].trim();
-            try {
-                return Sort.by(Sort.Direction.fromString(direction), property);
-            } catch (IllegalArgumentException ex) {
-                return defaultSort();
-            }
-        }
-        return Sort.by(Sort.Direction.DESC, property);
     }
 
     private Sort defaultSort() {

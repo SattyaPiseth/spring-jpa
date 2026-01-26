@@ -55,7 +55,7 @@ public class ProductController {
             @RequestParam(defaultValue = "createdAt,desc") String sort,
             @RequestParam(required = false) UUID categoryId
     ) {
-        PageRequest pageable = PageRequest.of(page, size, parseSort(sort));
+        PageRequest pageable = ControllerUtils.pageRequest(page, size, sort, ALLOWED_SORT_FIELDS, defaultSort());
         return productService.findAll(pageable, categoryId);
     }
 
@@ -92,26 +92,6 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    private Sort parseSort(String sort) {
-        if (sort == null || sort.isBlank()) {
-            return defaultSort();
-        }
-        String[] parts = sort.split(",", 2);
-        String property = parts[0].trim();
-        if (!ALLOWED_SORT_FIELDS.contains(property)) {
-            return defaultSort();
-        }
-        if (parts.length == 2) {
-            String direction = parts[1].trim();
-            try {
-                return Sort.by(Sort.Direction.fromString(direction), property);
-            } catch (IllegalArgumentException ex) {
-                return defaultSort();
-            }
-        }
-        return Sort.by(Sort.Direction.DESC, property);
     }
 
     private Sort defaultSort() {
