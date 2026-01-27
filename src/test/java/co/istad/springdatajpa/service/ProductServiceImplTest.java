@@ -9,6 +9,7 @@ import co.istad.springdatajpa.dto.request.ProductCreateRequest;
 import co.istad.springdatajpa.dto.request.ProductPatchRequest;
 import co.istad.springdatajpa.dto.response.ProductResponse;
 import co.istad.springdatajpa.dto.request.ProductUpdateRequest;
+import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.mapper.ProductMapper;
@@ -21,6 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -131,6 +133,34 @@ class ProductServiceImplTest {
         ProductResponse result = productService.create(request);
 
         assertThat(result).isEqualTo(response);
+    }
+
+    @Test
+    void create_withCategory_setsCategoryBeforeSave() {
+        UUID categoryId = UUID.randomUUID();
+        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"), categoryId);
+        Product product = new Product();
+        Category category = new Category();
+
+        when(productMapper.toEntity(request)).thenReturn(product);
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
+        when(productRepository.save(product)).thenAnswer(invocation -> invocation.getArgument(0));
+        when(productMapper.toResponse(product)).thenReturn(new ProductResponse(
+                UUID.randomUUID(),
+                "Name",
+                "Desc",
+                new BigDecimal("2.50"),
+                categoryId,
+                null,
+                Instant.parse("2025-01-01T00:00:00Z"),
+                Instant.parse("2025-01-02T00:00:00Z")
+        ));
+
+        productService.create(request);
+
+        ArgumentCaptor<Product> captor = ArgumentCaptor.forClass(Product.class);
+        verify(productRepository).save(captor.capture());
+        assertThat(captor.getValue().getCategory()).isEqualTo(category);
     }
 }
 

@@ -5,9 +5,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
+import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
 import java.math.BigDecimal;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +50,14 @@ class ProductContainerIT {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @AfterEach
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void cleanDatabase() {
         productRepository.deleteAll();
+        categoryRepository.deleteAll();
     }
 
     @Test
@@ -59,6 +66,25 @@ class ProductContainerIT {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").isArray())
                 .andExpect(jsonPath("$.page").exists());
+    }
+
+    @Test
+    void listProducts_includesCategorySummary() throws Exception {
+        Category category = new Category();
+        category.setName("Office");
+        category.setDescription("Office supplies");
+        Category savedCategory = categoryRepository.saveAndFlush(category);
+
+        Product product = newProduct("Folder", "Poly folder", "2.50");
+        product.setCategory(savedCategory);
+        Product savedProduct = productRepository.saveAndFlush(product);
+
+        mockMvc.perform(get("/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value(savedProduct.getId().toString()))
+                .andExpect(jsonPath("$.content[0].categoryId").value(savedCategory.getId().toString()))
+                .andExpect(jsonPath("$.content[0].category.id").value(savedCategory.getId().toString()))
+                .andExpect(jsonPath("$.content[0].category.name").value("Office"));
     }
 
     @Test

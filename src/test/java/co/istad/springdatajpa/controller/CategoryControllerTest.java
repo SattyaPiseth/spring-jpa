@@ -79,11 +79,12 @@ class CategoryControllerTest {
     @Test
     void getCategory_includesProductsSummary() throws Exception {
         UUID id = UUID.randomUUID();
+        UUID productId = UUID.randomUUID();
         CategoryResponse response = new CategoryResponse(
                 id,
                 "Office",
                 "Office supplies",
-                List.of(new co.istad.springdatajpa.dto.response.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
+                List.of(new co.istad.springdatajpa.dto.response.ProductSummary(productId, "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -93,6 +94,7 @@ class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()))
                 .andExpect(jsonPath("$.products").isArray())
+                .andExpect(jsonPath("$.products[0].id").value(productId.toString()))
                 .andExpect(jsonPath("$.products[0].name").value("Pen"));
     }
 
@@ -109,11 +111,12 @@ class CategoryControllerTest {
 
     @Test
     void createCategory_success_returnsCreated() throws Exception {
+        UUID productId = UUID.randomUUID();
         CategoryResponse response = new CategoryResponse(
                 UUID.randomUUID(),
                 "Office",
                 "Office supplies",
-                List.of(new co.istad.springdatajpa.dto.response.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
+                List.of(new co.istad.springdatajpa.dto.response.ProductSummary(productId, "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -125,6 +128,7 @@ class CategoryControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Office"))
                 .andExpect(jsonPath("$.products").isArray())
+                .andExpect(jsonPath("$.products[0].id").value(productId.toString()))
                 .andExpect(jsonPath("$.products[0].name").value("Pen"));
     }
 

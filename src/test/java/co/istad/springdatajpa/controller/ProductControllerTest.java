@@ -92,13 +92,14 @@ class ProductControllerTest {
     @Test
     void getProduct_success_returns200() throws Exception {
         UUID id = UUID.randomUUID();
+        UUID categoryId = UUID.randomUUID();
         ProductResponse response = new ProductResponse(
                 id,
                 "Chair",
                 "Office",
                 new BigDecimal("89.99"),
-                null,
-                new co.istad.springdatajpa.dto.response.CategorySummary(UUID.randomUUID(), "Office"),
+                categoryId,
+                new co.istad.springdatajpa.dto.response.CategorySummary(categoryId, "Office"),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -108,6 +109,7 @@ class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()))
                 .andExpect(jsonPath("$.name").value("Chair"))
+                .andExpect(jsonPath("$.categoryId").value(categoryId.toString()))
                 .andExpect(jsonPath("$.category.id").exists())
                 .andExpect(jsonPath("$.category.name").value("Office"));
     }
@@ -124,13 +126,14 @@ class ProductControllerTest {
 
     @Test
     void listProducts_returnsPage() throws Exception {
+        UUID categoryId = UUID.randomUUID();
         ProductResponse response = new ProductResponse(
                 UUID.randomUUID(),
                 "Keyboard",
                 "Mechanical",
                 new BigDecimal("99.99"),
-                null,
-                new co.istad.springdatajpa.dto.response.CategorySummary(UUID.randomUUID(), "Office"),
+                categoryId,
+                new co.istad.springdatajpa.dto.response.CategorySummary(categoryId, "Office"),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -140,6 +143,7 @@ class ProductControllerTest {
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].name").value("Keyboard"))
+                .andExpect(jsonPath("$.content[0].categoryId").value(categoryId.toString()))
                 .andExpect(jsonPath("$.content[0].category.id").exists())
                 .andExpect(jsonPath("$.content[0].category.name").value("Office"))
                 .andExpect(jsonPath("$.page").exists())
