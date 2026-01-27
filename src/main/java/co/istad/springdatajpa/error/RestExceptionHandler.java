@@ -38,16 +38,20 @@ public class RestExceptionHandler {
     @ExceptionHandler({ConstraintViolationException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponse> handleBadRequest(Exception ex, HttpServletRequest request) {
         List<String> errors = null;
+        String message = ex.getMessage();
         if (ex instanceof ConstraintViolationException constraintViolationException) {
             errors = constraintViolationException.getConstraintViolations().stream()
                     .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
                     .collect(Collectors.toList());
+        } else if (ex instanceof MethodArgumentTypeMismatchException mismatch) {
+            message = "Invalid request parameter";
+            errors = List.of(mismatch.getName() + ": invalid value");
         }
         ErrorResponse response = new ErrorResponse(
                 Instant.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                ex.getMessage(),
+                message,
                 request.getRequestURI(),
                 errors
         );
