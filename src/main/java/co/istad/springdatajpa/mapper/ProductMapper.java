@@ -1,11 +1,11 @@
 package co.istad.springdatajpa.mapper;
 
-import co.istad.springdatajpa.dto.CategorySummary;
-import co.istad.springdatajpa.dto.ProductCreateRequest;
-import co.istad.springdatajpa.dto.ProductPatchRequest;
-import co.istad.springdatajpa.dto.ProductResponse;
-import co.istad.springdatajpa.dto.ProductSummary;
-import co.istad.springdatajpa.dto.ProductUpdateRequest;
+import co.istad.springdatajpa.dto.response.CategorySummary;
+import co.istad.springdatajpa.dto.request.ProductCreateRequest;
+import co.istad.springdatajpa.dto.request.ProductPatchRequest;
+import co.istad.springdatajpa.dto.response.ProductResponse;
+import co.istad.springdatajpa.dto.response.ProductSummary;
+import co.istad.springdatajpa.dto.request.ProductUpdateRequest;
 import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
 import org.mapstruct.BeanMapping;
@@ -37,3 +37,4 @@ public interface ProductMapper {
 
     ProductSummary toSummary(Product product);
 }
+

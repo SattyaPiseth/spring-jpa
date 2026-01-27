@@ -34,3 +34,4 @@ public abstract class AuditedBaseEntity {
     @LastModifiedBy
     private String updatedBy;
 }
+

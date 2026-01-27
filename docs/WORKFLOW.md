@@ -54,7 +54,8 @@ Before coding:
    - Update `docs/SPRING_BOOT_OFFICIAL_CONTEXT.md`
 5) Implement with minimal diffs
 6) Run tests (`./gradlew clean test`, `./gradlew --% -Dit.tc=true clean integrationTest` when needed)
-7) Report changes and test results
+7) Update docs if behavior or structure changes (e.g., DTO package layout)
+8) Report changes and test results
 
 ## Verification
 

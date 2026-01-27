@@ -17,10 +17,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.not;
 
 import co.istad.springdatajpa.config.SpringDataWebConfig;
-import co.istad.springdatajpa.dto.CategoryCreateRequest;
-import co.istad.springdatajpa.dto.CategoryPatchRequest;
-import co.istad.springdatajpa.dto.CategoryResponse;
-import co.istad.springdatajpa.dto.CategoryUpdateRequest;
+import co.istad.springdatajpa.dto.request.CategoryCreateRequest;
+import co.istad.springdatajpa.dto.request.CategoryPatchRequest;
+import co.istad.springdatajpa.dto.response.CategoryResponse;
+import co.istad.springdatajpa.dto.request.CategoryUpdateRequest;
 import co.istad.springdatajpa.error.RestExceptionHandler;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.service.CategoryService;
@@ -83,7 +83,7 @@ class CategoryControllerTest {
                 id,
                 "Office",
                 "Office supplies",
-                List.of(new co.istad.springdatajpa.dto.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
+                List.of(new co.istad.springdatajpa.dto.response.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -113,7 +113,7 @@ class CategoryControllerTest {
                 UUID.randomUUID(),
                 "Office",
                 "Office supplies",
-                List.of(new co.istad.springdatajpa.dto.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
+                List.of(new co.istad.springdatajpa.dto.response.ProductSummary(UUID.randomUUID(), "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -236,4 +236,5 @@ class CategoryControllerTest {
                 .andExpect(content().string(not(containsString("UPDATE"))));
     }
 }
+
 

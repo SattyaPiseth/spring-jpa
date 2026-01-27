@@ -7,3 +7,4 @@ public record ErrorResponse(Instant timestamp, int status, String error, String 
                             List<String> errors) {
 
 }
+

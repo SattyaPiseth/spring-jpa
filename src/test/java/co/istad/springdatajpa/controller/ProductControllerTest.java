@@ -1,9 +1,9 @@
 package co.istad.springdatajpa.controller;
 
-import co.istad.springdatajpa.dto.ProductResponse;
-import co.istad.springdatajpa.dto.ProductCreateRequest;
-import co.istad.springdatajpa.dto.ProductPatchRequest;
-import co.istad.springdatajpa.dto.ProductUpdateRequest;
+import co.istad.springdatajpa.dto.response.ProductResponse;
+import co.istad.springdatajpa.dto.request.ProductCreateRequest;
+import co.istad.springdatajpa.dto.request.ProductPatchRequest;
+import co.istad.springdatajpa.dto.request.ProductUpdateRequest;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.config.SpringDataWebConfig;
 import co.istad.springdatajpa.error.RestExceptionHandler;
@@ -98,7 +98,7 @@ class ProductControllerTest {
                 "Office",
                 new BigDecimal("89.99"),
                 null,
-                new co.istad.springdatajpa.dto.CategorySummary(UUID.randomUUID(), "Office"),
+                new co.istad.springdatajpa.dto.response.CategorySummary(UUID.randomUUID(), "Office"),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -130,7 +130,7 @@ class ProductControllerTest {
                 "Mechanical",
                 new BigDecimal("99.99"),
                 null,
-                new co.istad.springdatajpa.dto.CategorySummary(UUID.randomUUID(), "Office"),
+                new co.istad.springdatajpa.dto.response.CategorySummary(UUID.randomUUID(), "Office"),
                 CREATED_AT,
                 UPDATED_AT
         );
@@ -417,4 +417,5 @@ class ProductControllerTest {
         return "{\"name\":\"" + name + "\",\"description\":\"" + description + "\",\"price\":" + price + "}";
     }
 }
+
 

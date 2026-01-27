@@ -1,9 +1,9 @@
 package co.istad.springdatajpa.controller;
 
-import co.istad.springdatajpa.dto.CategoryCreateRequest;
-import co.istad.springdatajpa.dto.CategoryPatchRequest;
-import co.istad.springdatajpa.dto.CategoryResponse;
-import co.istad.springdatajpa.dto.CategoryUpdateRequest;
+import co.istad.springdatajpa.dto.request.CategoryCreateRequest;
+import co.istad.springdatajpa.dto.request.CategoryPatchRequest;
+import co.istad.springdatajpa.dto.response.CategoryResponse;
+import co.istad.springdatajpa.dto.request.CategoryUpdateRequest;
 import co.istad.springdatajpa.service.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -96,3 +96,4 @@ public class CategoryController {
         return Sort.by(Sort.Direction.DESC, "createdAt");
     }
 }
+

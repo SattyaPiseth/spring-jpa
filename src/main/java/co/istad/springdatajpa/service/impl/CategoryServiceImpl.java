@@ -1,9 +1,9 @@
 package co.istad.springdatajpa.service.impl;
 
-import co.istad.springdatajpa.dto.CategoryCreateRequest;
-import co.istad.springdatajpa.dto.CategoryPatchRequest;
-import co.istad.springdatajpa.dto.CategoryResponse;
-import co.istad.springdatajpa.dto.CategoryUpdateRequest;
+import co.istad.springdatajpa.dto.request.CategoryCreateRequest;
+import co.istad.springdatajpa.dto.request.CategoryPatchRequest;
+import co.istad.springdatajpa.dto.response.CategoryResponse;
+import co.istad.springdatajpa.dto.request.CategoryUpdateRequest;
 import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.mapper.CategoryMapper;
@@ -74,3 +74,4 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + id));
     }
 }
+

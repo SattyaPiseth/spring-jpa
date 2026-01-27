@@ -1,9 +1,9 @@
 package co.istad.springdatajpa.mapper;
 
-import co.istad.springdatajpa.dto.CategoryCreateRequest;
-import co.istad.springdatajpa.dto.CategoryPatchRequest;
-import co.istad.springdatajpa.dto.CategoryResponse;
-import co.istad.springdatajpa.dto.CategoryUpdateRequest;
+import co.istad.springdatajpa.dto.request.CategoryCreateRequest;
+import co.istad.springdatajpa.dto.request.CategoryPatchRequest;
+import co.istad.springdatajpa.dto.response.CategoryResponse;
+import co.istad.springdatajpa.dto.request.CategoryUpdateRequest;
 import co.istad.springdatajpa.entity.Category;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -29,3 +29,4 @@ public interface CategoryMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void patchEntity(CategoryPatchRequest request, @MappingTarget Category category);
 }
+

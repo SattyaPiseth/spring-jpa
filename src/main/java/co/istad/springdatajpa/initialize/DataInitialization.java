@@ -157,3 +157,4 @@ public class DataInitialization implements ApplicationRunner {
         return product;
     }
 }
+

@@ -38,6 +38,9 @@ Controller -> Service -> Repository
 - Entities are not returned directly from controllers.
 - Benefits: stable API contracts, safer validation, and reduced coupling.
 - Category responses include product summaries; product responses include category summaries to avoid recursion.
+- DTO packages are split by direction for clarity:
+  - `co.istad.springdatajpa.dto.request`
+  - `co.istad.springdatajpa.dto.response`
 
 ## Mapping
 - MapStruct interface mapper with `componentModel = "spring"`.

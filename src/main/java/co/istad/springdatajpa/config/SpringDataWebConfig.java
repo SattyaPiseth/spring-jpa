@@ -8,3 +8,4 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport.PageSerial
 @EnableSpringDataWebSupport(pageSerializationMode = PageSerializationMode.VIA_DTO)
 public class SpringDataWebConfig {
 }
+

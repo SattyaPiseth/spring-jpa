@@ -1,9 +1,9 @@
 package co.istad.springdatajpa.service;
 
-import co.istad.springdatajpa.dto.CategoryCreateRequest;
-import co.istad.springdatajpa.dto.CategoryPatchRequest;
-import co.istad.springdatajpa.dto.CategoryResponse;
-import co.istad.springdatajpa.dto.CategoryUpdateRequest;
+import co.istad.springdatajpa.dto.request.CategoryCreateRequest;
+import co.istad.springdatajpa.dto.request.CategoryPatchRequest;
+import co.istad.springdatajpa.dto.response.CategoryResponse;
+import co.istad.springdatajpa.dto.request.CategoryUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,3 +17,4 @@ public interface CategoryService {
     CategoryResponse patch(UUID id, CategoryPatchRequest request);
     void delete(UUID id);
 }
+
