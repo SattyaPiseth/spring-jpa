@@ -83,6 +83,7 @@ Controller -> Service -> Repository
 - `@WebMvcTest` for controller behavior.
 - `@MockitoBean` for service mocking.
 - Verify: 200/400/404/500, paging metadata, validation errors.
+- Mapper unit tests validate DTO summary mappings.
 
 ### Integration Tests (H2, default)
 - `@SpringBootTest` + `@AutoConfigureMockMvc`.
@@ -95,6 +96,7 @@ Controller -> Service -> Repository
 - Docker required.
 - Gradle defaults `it.tc=true` and sets `spring.profiles.active=it` for integration tests; the profile lives in
   `src/integrationTest/resources/application-it.yml` to quiet noisy logs.
+- Integration assertions verify DTO summaries in API responses.
 - Run with:
   - PowerShell: `./gradlew --% -Dit.tc=true clean integrationTest`
   - Git Bash/CMD: `./gradlew -Dit.tc=true clean integrationTest`
