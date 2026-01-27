@@ -83,7 +83,7 @@ class ProductServiceImplTest {
     @Test
     void delete_notFound_throws() {
         UUID id = UUID.randomUUID();
-        when(productRepository.existsById(id)).thenReturn(false);
+        when(productRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> productService.delete(id))
                 .isInstanceOf(ResourceNotFoundException.class);
@@ -92,11 +92,12 @@ class ProductServiceImplTest {
     @Test
     void delete_success_callsRepository() {
         UUID id = UUID.randomUUID();
-        when(productRepository.existsById(id)).thenReturn(true);
+        Product product = new Product();
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
 
         productService.delete(id);
 
-        verify(productRepository).deleteById(id);
+        verify(productRepository).delete(product);
     }
 
     @Test

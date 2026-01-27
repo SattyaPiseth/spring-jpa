@@ -44,9 +44,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse findById(UUID id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
-        return productMapper.toResponse(product);
+        return productMapper.toResponse(getProductOrThrow(id));
     }
 
     @Override
@@ -61,8 +59,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponse update(UUID id, ProductUpdateRequest request) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+        Product product = getProductOrThrow(id);
         productMapper.updateEntity(request, product);
         applyCategoryIfPresent(product, request.categoryId());
         return productMapper.toResponse(product);
@@ -71,8 +68,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponse patch(UUID id, ProductPatchRequest request) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+        Product product = getProductOrThrow(id);
         productMapper.patchEntity(request, product);
         return productMapper.toResponse(product);
     }
@@ -80,10 +76,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void delete(UUID id) {
-        if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product not found: " + id);
-        }
-        productRepository.deleteById(id);
+        Product product = getProductOrThrow(id);
+        productRepository.delete(product);
     }
 
     private void applyCategoryIfPresent(Product product, UUID categoryId) {
@@ -93,5 +87,10 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + categoryId));
         product.setCategory(category);
+    }
+
+    private Product getProductOrThrow(UUID id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
     }
 }

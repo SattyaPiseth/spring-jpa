@@ -35,9 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponse findById(UUID id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + id));
-        return categoryMapper.toResponse(category);
+        return categoryMapper.toResponse(getCategoryOrThrow(id));
     }
 
     @Override
@@ -51,8 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryResponse update(UUID id, CategoryUpdateRequest request) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + id));
+        Category category = getCategoryOrThrow(id);
         categoryMapper.updateEntity(request, category);
         return categoryMapper.toResponse(category);
     }
@@ -60,8 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryResponse patch(UUID id, CategoryPatchRequest request) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + id));
+        Category category = getCategoryOrThrow(id);
         categoryMapper.patchEntity(request, category);
         return categoryMapper.toResponse(category);
     }
@@ -69,9 +65,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void delete(UUID id) {
-        if (!categoryRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Category not found: " + id);
-        }
-        categoryRepository.deleteById(id);
+        Category category = getCategoryOrThrow(id);
+        categoryRepository.delete(category);
+    }
+
+    private Category getCategoryOrThrow(UUID id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + id));
     }
 }

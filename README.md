@@ -47,6 +47,19 @@ in `application-local.yml` or `application-dev.yml`.
 Request/response DTOs are implemented as Java records for immutability and
 to reduce accidental mutation after validation.
 
+## Best Practices Applied
+
+- Layered architecture (Controller → Service → Repository)
+- DTO-only API responses (no entity exposure)
+- Centralized error handling (`@RestControllerAdvice`)
+- Validation at the boundary with Bean Validation
+- Stable paging output via Spring Data Web support
+- JPA auditing for created/updated timestamps
+- Bidirectional mapping with helper methods for consistency
+- JSON-safe serialization using summary DTOs
+- OSIV disabled for clearer transactional boundaries
+- Fast H2 tests + optional Testcontainers integration tests
+
 ## Tests
 
 ### Fast integration tests (H2)
