@@ -101,7 +101,7 @@ static void registerProperties(DynamicPropertyRegistry registry) {
     registry.add("spring.datasource.url", postgres::getJdbcUrl);
     registry.add("spring.datasource.username", postgres::getUsername);
     registry.add("spring.datasource.password", postgres::getPassword);
-    registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
+    registry.add("spring.jpa.hibernate.ddl-auto", () -> "create");
 }
 ```
 
@@ -120,7 +120,7 @@ Git Bash / CMD:
 The build separates fast tests and container-based tests:
 
 - `src/test/java` runs under the default `test` task (fast, H2).
-- `src/integrationTest/java` runs under the `integrationTest` task (Docker).
+- `src/integrationTest/java` runs under the `integrationTest` task (Docker, opt-in).
 
 Key build setup (from `build.gradle`):
 
