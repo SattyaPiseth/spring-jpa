@@ -30,7 +30,7 @@ H2 Console:
 For architecture, configuration, and testing details, see:
 `docs/PROJECT_OVERVIEW.md`.
 
-For workflow rules (Codex + Context7 + OpenSpec), see:
+For workflow rules (Codex + Context7 + OpenSpec) and filesystem MCP usage, see:
 `docs/WORKFLOW.md`.
 
 ## Local Environment
@@ -38,6 +38,10 @@ For workflow rules (Codex + Context7 + OpenSpec), see:
 Local test credentials can be set in `.env.file` (ignored by git). See
 `.env.example` for the expected keys, including `TEST_DB_USER` and
 `TEST_DB_PASSWORD`. Do not commit `.env.file`.
+
+Default profile requires PostgreSQL env vars:
+`POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`.
+If those are not set, use the `local` profile for H2 or provide a `.env.file`.
 
 Seed data for local/dev can be toggled with `app.seed.enabled=true|false`
 in `application-local.yml` or `application-dev.yml`.

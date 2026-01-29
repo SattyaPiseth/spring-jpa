@@ -8,6 +8,12 @@ This project uses three tools together to keep changes consistent and auditable.
 - Context7: official Spring docs lookup; facts must be recorded in the context file.
 - Codex: implementation, tests, and minimal diffs after approval.
 
+## Filesystem MCP Usage
+
+Use the filesystem MCP tools for all project file reads/writes.
+- Prefer MCP file operations over shell commands for content changes.
+- Use the shell only for running commands (tests, builds, git status).
+
 ## When To Use OpenSpec
 
 Use OpenSpec for:
@@ -52,7 +58,7 @@ Before coding:
 4) If Context7 facts are needed:
    - Query official sources
    - Update `docs/SPRING_BOOT_OFFICIAL_CONTEXT.md`
-5) Implement with minimal diffs
+5) Implement with minimal diffs (use filesystem MCP for file operations)
 6) Run tests (`./gradlew clean test`, `./gradlew --% -Dit.tc=true clean integrationTest` when needed)
 7) Update docs if behavior or structure changes (e.g., DTO package layout)
 8) Report changes and test results

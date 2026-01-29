@@ -40,6 +40,7 @@ public class RestExceptionHandler {
         List<String> errors = null;
         String message = ex.getMessage();
         if (ex instanceof ConstraintViolationException constraintViolationException) {
+            message = "Validation failed";
             errors = constraintViolationException.getConstraintViolations().stream()
                     .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
                     .collect(Collectors.toList());
