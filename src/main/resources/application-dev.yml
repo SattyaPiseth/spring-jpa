@@ -11,5 +11,15 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+# Seed data (dev only)
+app:
+  seed:
+    enabled: true
+    attributes:
+      enabled: true
+    variants:
+      enabled: true
+    categoryHierarchy:
+      enabled: true
 #server:
 #  port: 9090

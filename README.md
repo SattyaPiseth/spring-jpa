@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Java 21
-- Docker (only required for Testcontainers integration tests)
+- Docker (only required for Testcontainers integration tests; tests are skipped if Docker is unavailable)
 
 ## Quick Start
 
@@ -51,6 +51,64 @@ in `application-local.yml` or `application-dev.yml`.
 Request/response DTOs are implemented as Java records for immutability and
 to reduce accidental mutation after validation.
 
+## Minimal API Docs
+
+### Categories
+- `GET /categories` list categories (paged)
+- `GET /categories/{id}` get category by id
+- `POST /categories` create category
+- `PUT /categories/{id}` update category
+- `PATCH /categories/{id}` patch category description (and hierarchy fields)
+- `DELETE /categories/{id}` delete category
+
+### Products
+- `GET /products` list products (paged, optional `categoryId`)
+- `GET /products/{id}` get product by id
+- `POST /products` create product
+- `PUT /products/{id}` update product
+- `PATCH /products/{id}` patch product
+- `DELETE /products/{id}` delete product
+
+### Keyset Pagination (Recommended)
+Offset paging (`page`/`size`) remains supported for backward compatibility. For large datasets, use `cursor` to enable keyset pagination.
+
+Ordering guarantees:
+- Keyset pages are ordered by `createdAt DESC, id DESC`.
+- The cursor encodes the last `(createdAt, id)` from the previous page.
+
+Products keyset example (first page uses empty cursor):
+```
+GET /products?size=20&cursor=
+```
+
+Response:
+```json
+{
+  "items": [ ... ],
+  "nextCursor": "opaque-token-or-null",
+  "hasNext": true
+}
+```
+
+Variants keyset example (first page uses empty cursor):
+```
+GET /products/{id}/variants?size=20&cursor=
+```
+
+### Product Variants
+- `POST /products/{id}/variants` create variant for product
+- `GET /products/{id}/variants` list variants for product (paged)
+- `PUT /products/{id}/variants/{variantId}` update variant for product
+- `GET /variants/{id}` get variant by id
+
+### Attributes
+- `POST /products/{id}/attributes` create product attribute
+- `GET /products/{id}/attributes` list product attributes
+- `PUT /products/{id}/attributes/{attributeId}` update product attribute
+- `POST /variants/{id}/attributes` create variant attribute
+- `GET /variants/{id}/attributes` list variant attributes
+- `PUT /variants/{id}/attributes/{attributeId}` update variant attribute
+
 ## Best Practices Applied
 
 - Layered architecture (Controller → Service → Repository)
@@ -97,6 +155,7 @@ spring:
 Runs the Testcontainers suite in `src/integrationTest/java` using a real
 PostgreSQL container. Docker must be running. Tests are gated by
 `-Dit.tc=true` (the `integrationTest` task defaults this to `true`).
+If Docker is not reachable, Testcontainers will skip container-based tests.
 
 Testcontainers uses dynamic datasource properties in `ProductContainerIT`:
 ```java

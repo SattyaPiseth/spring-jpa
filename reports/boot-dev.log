@@ -1,0 +1,2876 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :resolveMainClassName
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2026-01-30T16:37:39.390+07:00  INFO 24232 --- [           main] c.i.s.SpringDataJpaApplication           : Starting SpringDataJpaApplication using Java 21.0.10 with PID 24232 (C:\Users\ADMIN\IdeaProjects\spring-jpa\build\classes\java\main started by ADMIN in C:\Users\ADMIN\IdeaProjects\spring-jpa)
+2026-01-30T16:37:39.391+07:00  INFO 24232 --- [           main] c.i.s.SpringDataJpaApplication           : The following 1 profile is active: "dev"
+2026-01-30T16:37:39.941+07:00  INFO 24232 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-30T16:37:39.987+07:00  INFO 24232 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 2 JPA repository interfaces.
+2026-01-30T16:37:40.419+07:00  INFO 24232 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-01-30T16:37:40.431+07:00  INFO 24232 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-30T16:37:40.431+07:00  INFO 24232 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2026-01-30T16:37:40.475+07:00  INFO 24232 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-30T16:37:40.476+07:00  INFO 24232 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1046 ms
+2026-01-30T16:37:40.590+07:00  INFO 24232 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-30T16:37:40.622+07:00  INFO 24232 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2026-01-30T16:37:40.646+07:00  INFO 24232 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-30T16:37:40.857+07:00  INFO 24232 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-30T16:37:40.882+07:00  INFO 24232 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-30T16:37:41.116+07:00  INFO 24232 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@65af05b2
+2026-01-30T16:37:41.118+07:00  INFO 24232 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-30T16:37:41.240+07:00  INFO 24232 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.7
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-30T16:37:42.460+07:00  INFO 24232 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-30T16:37:42.490+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    set client_min_messages = WARNING
+Hibernate: 
+    set client_min_messages = WARNING
+2026-01-30T16:37:42.496+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    alter table if exists products 
+       drop constraint if exists FKog2rp4qthbtt2lfyhfo32lsw9
+Hibernate: 
+    alter table if exists products 
+       drop constraint if exists FKog2rp4qthbtt2lfyhfo32lsw9
+2026-01-30T16:37:42.504+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    drop table if exists categories cascade
+Hibernate: 
+    drop table if exists categories cascade
+2026-01-30T16:37:42.508+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    drop table if exists products cascade
+Hibernate: 
+    drop table if exists products cascade
+2026-01-30T16:37:42.520+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    create table categories (
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        description varchar(2000),
+        created_by varchar(255),
+        name varchar(255) not null unique,
+        updated_by varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table categories (
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        description varchar(2000),
+        created_by varchar(255),
+        name varchar(255) not null unique,
+        updated_by varchar(255),
+        primary key (id)
+    )
+2026-01-30T16:37:42.608+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    create table products (
+        price numeric(19,2) not null,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        category_id uuid,
+        id uuid not null,
+        created_by varchar(255),
+        description TEXT,
+        pro_name varchar(255) not null,
+        updated_by varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table products (
+        price numeric(19,2) not null,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        category_id uuid,
+        id uuid not null,
+        created_by varchar(255),
+        description TEXT,
+        pro_name varchar(255) not null,
+        updated_by varchar(255),
+        primary key (id)
+    )
+2026-01-30T16:37:42.623+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    alter table if exists products 
+       add constraint FKog2rp4qthbtt2lfyhfo32lsw9 
+       foreign key (category_id) 
+       references categories
+Hibernate: 
+    alter table if exists products 
+       add constraint FKog2rp4qthbtt2lfyhfo32lsw9 
+       foreign key (category_id) 
+       references categories
+2026-01-30T16:37:42.652+07:00  INFO 24232 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-30T16:37:43.721+07:00  INFO 24232 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-01-30T16:37:43.730+07:00  INFO 24232 --- [           main] c.i.s.SpringDataJpaApplication           : Started SpringDataJpaApplication in 4.744 seconds (process running for 5.024)
+2026-01-30T16:37:43.904+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:43.914+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Laptops]
+2026-01-30T16:37:44.113+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.114+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.014146Z]
+2026-01-30T16:37:44.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [All laptops and notebooks (Acer, ASUS, Dell, HP, Lenovo...)]
+2026-01-30T16:37:44.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Laptops]
+2026-01-30T16:37:44.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.014146Z]
+2026-01-30T16:37:44.116+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.116+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [43799d5f-fe48-4110-a78e-fbbbfc39720a]
+2026-01-30T16:37:44.139+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.140+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Gaming Laptops]
+2026-01-30T16:37:44.145+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.143976200Z]
+2026-01-30T16:37:44.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [High-performance laptops for gaming (RTX series, high refresh rate)]
+2026-01-30T16:37:44.146+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gaming Laptops]
+2026-01-30T16:37:44.146+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.143976200Z]
+2026-01-30T16:37:44.146+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.146+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [1adebd95-517f-4f80-8c14-89331320c4be]
+2026-01-30T16:37:44.155+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.156+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Business Laptops]
+2026-01-30T16:37:44.160+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.159267100Z]
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Office and productivity laptops (ThinkPad, Latitude, EliteBook...)]
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Business Laptops]
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.159267100Z]
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.160+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [e9c31bc0-1337-4030-a4e7-cac43a48a11a]
+2026-01-30T16:37:44.168+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.168+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [2-in-1 & Tablets]
+2026-01-30T16:37:44.173+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.173+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.172298800Z]
+2026-01-30T16:37:44.173+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.173+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Convertible laptops and tablets]
+2026-01-30T16:37:44.173+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [2-in-1 & Tablets]
+2026-01-30T16:37:44.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.172298800Z]
+2026-01-30T16:37:44.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [7cfec27c-9e53-4120-bbd2-0a28be66d6c7]
+2026-01-30T16:37:44.185+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Desktops]
+2026-01-30T16:37:44.190+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.190097600Z]
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Desktop PCs and towers for home/office use]
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Desktops]
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.190097600Z]
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [754f94d5-bd66-44df-b2cb-61b52dbf21e7]
+2026-01-30T16:37:44.199+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.200+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [All-in-One (AIO)]
+2026-01-30T16:37:44.206+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.205714600Z]
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [All-in-one desktop computers]
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [All-in-One (AIO)]
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.205714600Z]
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.207+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [af30d510-3051-4c06-9f7d-aaa1fe8a0d35]
+2026-01-30T16:37:44.215+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.215+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Workstations]
+2026-01-30T16:37:44.222+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.222+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.220966500Z]
+2026-01-30T16:37:44.222+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.222+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Professional PCs for design, engineering, and heavy workloads]
+2026-01-30T16:37:44.222+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Workstations]
+2026-01-30T16:37:44.223+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.220966500Z]
+2026-01-30T16:37:44.223+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.223+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [7cb4f2eb-0b05-4343-9153-138a45cee8f2]
+2026-01-30T16:37:44.229+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.231+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Custom PC Builder]
+2026-01-30T16:37:44.235+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.236+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.234236100Z]
+2026-01-30T16:37:44.236+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.236+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Custom-built gaming and performance desktop PCs]
+2026-01-30T16:37:44.236+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Custom PC Builder]
+2026-01-30T16:37:44.236+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.234236100Z]
+2026-01-30T16:37:44.237+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.237+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [cb2947ca-37f9-4b60-85f6-98017b0250b8]
+2026-01-30T16:37:44.245+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.245+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [CPU (Intel / AMD)]
+2026-01-30T16:37:44.251+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.251+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.250116800Z]
+2026-01-30T16:37:44.251+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.251+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Processors for desktop PCs (Intel Core, AMD Ryzen)]
+2026-01-30T16:37:44.251+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [CPU (Intel / AMD)]
+2026-01-30T16:37:44.251+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.250116800Z]
+2026-01-30T16:37:44.252+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.252+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [c7728f50-3e71-428f-bd72-39bc9566807d]
+2026-01-30T16:37:44.260+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.260+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Motherboards]
+2026-01-30T16:37:44.266+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.266+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.264766900Z]
+2026-01-30T16:37:44.266+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.267+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Mainboards for Intel and AMD platforms]
+2026-01-30T16:37:44.267+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Motherboards]
+2026-01-30T16:37:44.267+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.264766900Z]
+2026-01-30T16:37:44.267+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.267+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [81b3dfd8-c2bb-4cde-b67f-7c5928c5c8b8]
+2026-01-30T16:37:44.276+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.277+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [RAM]
+2026-01-30T16:37:44.283+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.283+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.281581600Z]
+2026-01-30T16:37:44.283+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.283+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Memory modules DDR4/DDR5 for laptops/desktops]
+2026-01-30T16:37:44.283+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [RAM]
+2026-01-30T16:37:44.283+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.281581600Z]
+2026-01-30T16:37:44.284+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.284+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [9215682b-70f9-4998-8d0f-9b9c4496673e]
+2026-01-30T16:37:44.292+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.293+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Graphics Cards (GPU)]
+2026-01-30T16:37:44.297+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.298+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.296827900Z]
+2026-01-30T16:37:44.298+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.298+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [NVIDIA and AMD GPUs for gaming and productivity]
+2026-01-30T16:37:44.298+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Graphics Cards (GPU)]
+2026-01-30T16:37:44.299+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.296827900Z]
+2026-01-30T16:37:44.299+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.299+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [08598d38-d582-4da4-9fe9-db949fcacbe9]
+2026-01-30T16:37:44.308+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.309+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Storage (SSD / HDD / M.2)]
+2026-01-30T16:37:44.313+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.314+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.312845800Z]
+2026-01-30T16:37:44.314+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.314+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [NVMe SSD, SATA SSD, HDD storage solutions]
+2026-01-30T16:37:44.314+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Storage (SSD / HDD / M.2)]
+2026-01-30T16:37:44.315+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.312845800Z]
+2026-01-30T16:37:44.315+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.315+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [abd1335c-6894-4b1a-aeef-6bee01687deb]
+2026-01-30T16:37:44.325+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.325+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Power Supplies (PSU)]
+2026-01-30T16:37:44.330+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.330+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.329115300Z]
+2026-01-30T16:37:44.330+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.331+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Power supplies for desktops (80 Plus Bronze/Gold/Platinum)]
+2026-01-30T16:37:44.331+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Power Supplies (PSU)]
+2026-01-30T16:37:44.331+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.329115300Z]
+2026-01-30T16:37:44.331+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.331+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [34469303-1606-47cf-a894-dfb1a8959d99]
+2026-01-30T16:37:44.341+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.341+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [PC Cases]
+2026-01-30T16:37:44.345+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.344726Z]
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Computer cases and chassis]
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [PC Cases]
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.344726Z]
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.346+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [f90c635a-fdbe-4527-b05d-ab6e8f0a0bf8]
+2026-01-30T16:37:44.354+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.354+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Cooling (Air / Liquid)]
+2026-01-30T16:37:44.359+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.359+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.358266800Z]
+2026-01-30T16:37:44.360+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.360+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [CPU coolers and liquid cooling systems]
+2026-01-30T16:37:44.360+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Cooling (Air / Liquid)]
+2026-01-30T16:37:44.360+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.358266800Z]
+2026-01-30T16:37:44.360+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.361+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [f0128390-b1e7-4abc-855d-059ed8875ef1]
+2026-01-30T16:37:44.371+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.371+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Case Fans]
+2026-01-30T16:37:44.376+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.376+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.375223400Z]
+2026-01-30T16:37:44.376+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.376+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [PC fans for airflow and cooling]
+2026-01-30T16:37:44.376+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Case Fans]
+2026-01-30T16:37:44.376+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.375223400Z]
+2026-01-30T16:37:44.376+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.377+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [f7b7e1db-8644-43a0-852f-ae04bcba01e4]
+2026-01-30T16:37:44.384+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.385+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Monitors]
+2026-01-30T16:37:44.390+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.391+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.390388600Z]
+2026-01-30T16:37:44.391+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.392+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Office and general-purpose monitors]
+2026-01-30T16:37:44.392+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Monitors]
+2026-01-30T16:37:44.392+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.390388600Z]
+2026-01-30T16:37:44.392+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.392+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [34882b2b-3ef6-48b4-a5bf-ef6664ef1311]
+2026-01-30T16:37:44.399+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.400+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Gaming Monitors]
+2026-01-30T16:37:44.405+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.404303900Z]
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [High refresh rate monitors (144Hz/165Hz/240Hz)]
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gaming Monitors]
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.404303900Z]
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.406+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [1be75d2f-ad2f-44f8-8fe8-ad73a7263966]
+2026-01-30T16:37:44.415+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.415+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Monitor Accessories]
+2026-01-30T16:37:44.420+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.420+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.419031500Z]
+2026-01-30T16:37:44.420+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.420+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Monitor arm, cables, adapters, stands]
+2026-01-30T16:37:44.421+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Monitor Accessories]
+2026-01-30T16:37:44.421+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.419031500Z]
+2026-01-30T16:37:44.421+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.421+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [88f8fe62-5cce-4259-9d5e-4b3a70b8f411]
+2026-01-30T16:37:44.428+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.428+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Keyboards]
+2026-01-30T16:37:44.433+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.433+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.432181500Z]
+2026-01-30T16:37:44.433+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.433+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Office and mechanical keyboards]
+2026-01-30T16:37:44.433+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Keyboards]
+2026-01-30T16:37:44.433+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.432181500Z]
+2026-01-30T16:37:44.433+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.434+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [cba9f3d9-ffee-4fae-9d5b-b1c0866873f8]
+2026-01-30T16:37:44.441+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.442+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Mice]
+2026-01-30T16:37:44.446+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.445399900Z]
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Wireless and gaming mice]
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Mice]
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.445399900Z]
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.447+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [2c33a1b9-294d-4e3c-a44a-1b73ed8164c6]
+2026-01-30T16:37:44.454+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.455+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Headsets]
+2026-01-30T16:37:44.459+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.459+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.458749500Z]
+2026-01-30T16:37:44.460+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.460+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Gaming and office headsets]
+2026-01-30T16:37:44.460+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Headsets]
+2026-01-30T16:37:44.460+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.458749500Z]
+2026-01-30T16:37:44.460+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.460+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [b4311f08-6666-41aa-bbbb-20c5e0b4c14c]
+2026-01-30T16:37:44.466+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.467+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Speakers]
+2026-01-30T16:37:44.472+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.471560100Z]
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Desktop and portable speakers]
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Speakers]
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.471560100Z]
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.473+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [288e7a35-39ee-429d-a19e-363cd340aee8]
+2026-01-30T16:37:44.479+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.480+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Webcams]
+2026-01-30T16:37:44.484+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.484+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.483552200Z]
+2026-01-30T16:37:44.484+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.484+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Webcams for meetings and streaming]
+2026-01-30T16:37:44.484+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Webcams]
+2026-01-30T16:37:44.485+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.483552200Z]
+2026-01-30T16:37:44.485+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.485+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [23010ba4-cd5d-4cfc-9d55-f5900a42cedf]
+2026-01-30T16:37:44.491+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.492+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Microphones]
+2026-01-30T16:37:44.496+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.494843100Z]
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Microphones for recording and streaming]
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Microphones]
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.494843100Z]
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.497+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [da9e1440-4497-47f2-85e0-8f103f302c76]
+2026-01-30T16:37:44.503+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.504+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Printers]
+2026-01-30T16:37:44.508+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.507706300Z]
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Inkjet and laser printers]
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Printers]
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.507706300Z]
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.509+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [f1ae375f-51ed-4a04-8978-15a96968f965]
+2026-01-30T16:37:44.516+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.516+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Scanners]
+2026-01-30T16:37:44.521+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.521369400Z]
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Document scanners]
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Scanners]
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.521369400Z]
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.522+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [c74cb4e1-d91a-43f7-877d-1e8235e4c14b]
+2026-01-30T16:37:44.529+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.529+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Ink & Toner]
+2026-01-30T16:37:44.533+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.532798500Z]
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Printer ink cartridges and toner]
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Ink & Toner]
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.532798500Z]
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.534+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [0cc31b17-e50c-40e2-91de-5d219a1d358d]
+2026-01-30T16:37:44.541+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.541+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Networking]
+2026-01-30T16:37:44.546+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.546+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.545527200Z]
+2026-01-30T16:37:44.547+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.547+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Routers, switches, Wi-Fi access points]
+2026-01-30T16:37:44.547+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Networking]
+2026-01-30T16:37:44.547+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.545527200Z]
+2026-01-30T16:37:44.547+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.547+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [99c1095d-6c43-4e93-bf5d-b6af3bfd0aab]
+2026-01-30T16:37:44.555+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.555+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Routers]
+2026-01-30T16:37:44.560+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.558947100Z]
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Wi-Fi routers and mesh systems]
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Routers]
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.558947100Z]
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.560+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [175a08a1-f8b4-4afc-b4c9-c1550184e92b]
+2026-01-30T16:37:44.567+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.567+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Network Switches]
+2026-01-30T16:37:44.573+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.572181100Z]
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [LAN switches for home and office networking]
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Network Switches]
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.572181100Z]
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.574+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [337a63c8-174e-42c6-8a7e-1ea378efeb66]
+2026-01-30T16:37:44.582+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.582+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Access Points]
+2026-01-30T16:37:44.587+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.588+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.586888200Z]
+2026-01-30T16:37:44.588+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.589+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Wi-Fi access points for extended coverage]
+2026-01-30T16:37:44.589+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Access Points]
+2026-01-30T16:37:44.589+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.586888200Z]
+2026-01-30T16:37:44.589+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.589+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [b8b41537-0b80-421d-8caf-eac8267c9cbd]
+2026-01-30T16:37:44.596+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.597+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Cables & Adapters]
+2026-01-30T16:37:44.601+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.600743200Z]
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [LAN cables, HDMI, DisplayPort, USB cables and adapters]
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Cables & Adapters]
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.600743200Z]
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.602+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [1a4069f9-244b-4c96-8041-aeb295c588da]
+2026-01-30T16:37:44.610+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.611+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Laptop Accessories]
+2026-01-30T16:37:44.615+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.614684Z]
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Laptop bags, chargers, hubs and docking stations]
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Laptop Accessories]
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.614684Z]
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.615+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [51a86583-364e-4e2a-81c3-962636cdcfed]
+2026-01-30T16:37:44.623+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.623+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Docking Stations / USB Hubs]
+2026-01-30T16:37:44.628+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.628+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.627178200Z]
+2026-01-30T16:37:44.628+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.628+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [USB hubs, docking stations, Type-C adapters]
+2026-01-30T16:37:44.628+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Docking Stations / USB Hubs]
+2026-01-30T16:37:44.628+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.627178200Z]
+2026-01-30T16:37:44.629+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.629+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [1d42a207-6e82-46d2-890d-62b7d60df04c]
+2026-01-30T16:37:44.637+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.637+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [External Storage]
+2026-01-30T16:37:44.642+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.640777900Z]
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [External SSD/HDD and USB flash drives]
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [External Storage]
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.640777900Z]
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.642+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [9e38713a-eec8-4075-81ca-3e9db2ccec56]
+2026-01-30T16:37:44.649+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.649+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [UPS]
+2026-01-30T16:37:44.654+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.653561Z]
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Power backup UPS devices for desktops and office]
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [UPS]
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.653561Z]
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.655+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [62ca9d4f-3caf-45d9-b116-959b5bf76f91]
+2026-01-30T16:37:44.662+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.created_by,
+        c1_0.description,
+        c1_0.name,
+        c1_0.updated_at,
+        c1_0.updated_by 
+    from
+        categories c1_0 
+    where
+        c1_0.name=?
+2026-01-30T16:37:44.662+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:VARCHAR) <- [Power Strips / Surge Protectors]
+2026-01-30T16:37:44.666+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        categories
+        (created_at, created_by, description, name, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:44.666+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.665761300Z]
+2026-01-30T16:37:44.667+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:VARCHAR) <- [system]
+2026-01-30T16:37:44.667+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [Electrical protection for devices]
+2026-01-30T16:37:44.667+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Power Strips / Surge Protectors]
+2026-01-30T16:37:44.667+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:TIMESTAMP_UTC) <- [2026-01-30T09:37:44.665761300Z]
+2026-01-30T16:37:44.667+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:VARCHAR) <- [system]
+2026-01-30T16:37:44.667+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:UUID) <- [54378e12-ea39-4f33-8ad7-cdce23fc3cfb]
+2026-01-30T16:37:45.054+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    select
+        count(*) 
+    from
+        products p1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        products p1_0
+2026-01-30T16:37:45.089+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.089+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [43799d5f-fe48-4110-a78e-fbbbfc39720a]
+2026-01-30T16:37:45.089+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.069543600Z]
+2026-01-30T16:37:45.089+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.089+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [15.6-inch laptop, Core i5, 8GB RAM, 512GB SSD]
+2026-01-30T16:37:45.089+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Acer Aspire 5]
+2026-01-30T16:37:45.089+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [579.00]
+2026-01-30T16:37:45.090+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.069543600Z]
+2026-01-30T16:37:45.090+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.090+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [b1cf1725-95b0-4345-a4dd-36f9aaace806]
+2026-01-30T16:37:45.096+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.096+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [43799d5f-fe48-4110-a78e-fbbbfc39720a]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.070642300Z]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [14-inch laptop, Ryzen 5, 8GB RAM, 512GB SSD]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [ASUS VivoBook 14]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [629.00]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.070642300Z]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.097+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [fd0cf570-c485-4310-8805-0f65f9e3c132]
+2026-01-30T16:37:45.100+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.100+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [e9c31bc0-1337-4030-a4e7-cac43a48a11a]
+2026-01-30T16:37:45.100+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.071187300Z]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [13.4-inch laptop, Core i7, 16GB RAM, 1TB SSD]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Dell XPS 13]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [1399.00]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.071187300Z]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.101+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [ffe78dd0-4779-4b13-822e-19226c2ce69b]
+2026-01-30T16:37:45.104+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [e9c31bc0-1337-4030-a4e7-cac43a48a11a]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.071758800Z]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [14-inch laptop, Core i5, 16GB RAM, 512GB SSD]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Lenovo ThinkPad E14]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [899.00]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.071758800Z]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.105+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [40eb4010-10c0-41f8-b0ed-13b920c7e708]
+2026-01-30T16:37:45.108+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [1adebd95-517f-4f80-8c14-89331320c4be]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.072303400Z]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gaming laptop, RTX 4060, 16GB RAM, 1TB SSD]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [HP Omen 16]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [1499.00]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.072303400Z]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.108+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [53c40308-0242-4803-831f-df355b7ea7dc]
+2026-01-30T16:37:45.111+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.111+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [1adebd95-517f-4f80-8c14-89331320c4be]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.072303400Z]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gaming laptop, RTX 4070, 16GB RAM, 1TB SSD]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [ASUS ROG Strix G16]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [1899.00]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.072303400Z]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.112+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [da0fe2fc-2466-49b5-91b4-b76d663e066e]
+2026-01-30T16:37:45.115+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [7cfec27c-9e53-4120-bbd2-0a28be66d6c7]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.072843100Z]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [2-in-1 tablet, 13-inch, 8GB RAM, 256GB SSD]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Microsoft Surface Pro 9]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [1099.00]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.072843100Z]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.115+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [24b12170-05ca-4693-b955-d43cafd5ea04]
+2026-01-30T16:37:45.117+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.117+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [af30d510-3051-4c06-9f7d-aaa1fe8a0d35]
+2026-01-30T16:37:45.117+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.073386600Z]
+2026-01-30T16:37:45.117+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.117+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [All-in-one desktop, Core i5, 16GB RAM, 512GB SSD]
+2026-01-30T16:37:45.117+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Dell Inspiron AIO 24]
+2026-01-30T16:37:45.118+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [999.00]
+2026-01-30T16:37:45.118+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.073386600Z]
+2026-01-30T16:37:45.118+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.118+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [eff563e3-e15b-4347-a76a-49f3a79ce86e]
+2026-01-30T16:37:45.121+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.121+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [cb2947ca-37f9-4b60-85f6-98017b0250b8]
+2026-01-30T16:37:45.121+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.073929500Z]
+2026-01-30T16:37:45.121+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.121+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Ryzen 7, RTX 4070, 32GB RAM, 1TB NVMe SSD]
+2026-01-30T16:37:45.122+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Custom Gaming PC]
+2026-01-30T16:37:45.122+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [2199.00]
+2026-01-30T16:37:45.122+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.073929500Z]
+2026-01-30T16:37:45.122+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.122+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [59b49c3e-4ec9-4997-bbf6-15b2440285bf]
+2026-01-30T16:37:45.124+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.124+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [754f94d5-bd66-44df-b2cb-61b52dbf21e7]
+2026-01-30T16:37:45.124+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.073929500Z]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Desktop PC, Core i5, 8GB RAM, 256GB SSD]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [HP ProDesk Tower]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [699.00]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.073929500Z]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.125+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [5766ecc3-2641-458b-9074-54b073f872c9]
+2026-01-30T16:37:45.127+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [c7728f50-3e71-428f-bd72-39bc9566807d]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.074941700Z]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Desktop CPU, 20-core processor]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Intel Core i7-14700K]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [389.00]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.074941700Z]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.128+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [d1260e50-a776-4a3c-ae15-e7889b4ea4e0]
+2026-01-30T16:37:45.131+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [c7728f50-3e71-428f-bd72-39bc9566807d]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Desktop CPU, gaming optimized]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [AMD Ryzen 7 7800X3D]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [429.00]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.131+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [ab0c6a8c-bebd-4636-a81d-603714e91b26]
+2026-01-30T16:37:45.134+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.134+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [81b3dfd8-c2bb-4cde-b67f-7c5928c5c8b8]
+2026-01-30T16:37:45.134+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [AMD AM5 motherboard, Wi-Fi 6]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [ASUS B650 Motherboard]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [189.00]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.135+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [6470a333-9ae7-4450-bd4e-c527cd2824c9]
+2026-01-30T16:37:45.138+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [9215682b-70f9-4998-8d0f-9b9c4496673e]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [DDR5-6000 RAM kit]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Corsair 32GB DDR5]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [139.00]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.138+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [99cb8d48-bae4-4f4e-a753-6394b70ca42d]
+2026-01-30T16:37:45.141+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.141+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [08598d38-d582-4da4-9fe9-db949fcacbe9]
+2026-01-30T16:37:45.141+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [12GB GDDR6X graphics card]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [NVIDIA RTX 4070 Super]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [699.00]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.076448300Z]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.142+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [10cf496b-0133-4a44-94d4-ecf20bd219f4]
+2026-01-30T16:37:45.145+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [abd1335c-6894-4b1a-aeef-6bee01687deb]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [NVMe M.2 SSD]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Samsung 980 Pro 1TB]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [99.00]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.145+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [02bc64e6-fac2-4cc6-8cd7-804d2cfed621]
+2026-01-30T16:37:45.148+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [abd1335c-6894-4b1a-aeef-6bee01687deb]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [7200RPM SATA hard drive]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Seagate 2TB HDD]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [59.00]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.148+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [fb69f629-9bdd-4d06-8ae4-eaf0dc5b9e31]
+2026-01-30T16:37:45.151+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [34469303-1606-47cf-a894-dfb1a8959d99]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [750W 80 Plus Gold PSU]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Corsair RM750e]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [119.00]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.151+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [0fe1549c-a8a7-4164-a78f-6aef5fadbbd0]
+2026-01-30T16:37:45.155+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [f90c635a-fdbe-4527-b05d-ab6e8f0a0bf8]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [ATX PC case with airflow design]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [NZXT H5 Flow]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [89.00]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.155+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [89dd062f-fefb-4c0f-9fd3-ea181fc019a7]
+2026-01-30T16:37:45.158+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.158+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [f0128390-b1e7-4abc-855d-059ed8875ef1]
+2026-01-30T16:37:45.158+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.158+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.158+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Air CPU cooler]
+2026-01-30T16:37:45.158+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Noctua NH-D15]
+2026-01-30T16:37:45.158+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [109.00]
+2026-01-30T16:37:45.159+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.077460700Z]
+2026-01-30T16:37:45.159+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.159+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [73d3171e-2d30-4eae-88e4-22160ab7f9d8]
+2026-01-30T16:37:45.162+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [f7b7e1db-8644-43a0-852f-ae04bcba01e4]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.078976400Z]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [120mm case fans]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Arctic P12 Fans (3-pack)]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [24.00]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.078976400Z]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.162+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [91a257fb-518e-4648-97d6-408988c7293e]
+2026-01-30T16:37:45.165+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.165+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [34882b2b-3ef6-48b4-a5bf-ef6664ef1311]
+2026-01-30T16:37:45.165+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.078976400Z]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [27-inch 1080p IPS monitor]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [LG 27-inch IPS Monitor]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [179.00]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.078976400Z]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.166+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [1f033d57-c63f-42c9-adbe-882ee36aeadb]
+2026-01-30T16:37:45.169+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.169+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [1be75d2f-ad2f-44f8-8fe8-ad73a7263966]
+2026-01-30T16:37:45.169+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.079997300Z]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gaming monitor 165Hz]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [ASUS TUF 27-inch 165Hz]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [259.00]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.079997300Z]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.170+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [2408ce44-8ad3-4462-92cc-a7ba67bd1b26]
+2026-01-30T16:37:45.173+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.173+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [cba9f3d9-ffee-4fae-9d5b-b1c0866873f8]
+2026-01-30T16:37:45.173+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.079997300Z]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Wireless mechanical keyboard]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Keychron K2]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [89.00]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.079997300Z]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.174+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [2b4e668b-9ec0-4766-bcd5-e5a73d82e293]
+2026-01-30T16:37:45.177+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.177+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [2c33a1b9-294d-4e3c-a44a-1b73ed8164c6]
+2026-01-30T16:37:45.177+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.079997300Z]
+2026-01-30T16:37:45.177+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.177+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Wireless productivity mouse]
+2026-01-30T16:37:45.177+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Logitech MX Master 3S]
+2026-01-30T16:37:45.177+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [99.00]
+2026-01-30T16:37:45.178+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.079997300Z]
+2026-01-30T16:37:45.178+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.178+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [b72cea97-da04-435a-8b1c-57d059c69002]
+2026-01-30T16:37:45.181+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [b4311f08-6666-41aa-bbbb-20c5e0b4c14c]
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.080987100Z]
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gaming headset]
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [HyperX Cloud II]
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [79.00]
+2026-01-30T16:37:45.181+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.080987100Z]
+2026-01-30T16:37:45.182+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.182+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [bbc09b0f-ac59-4383-ad82-1c5e96117d3b]
+2026-01-30T16:37:45.185+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [288e7a35-39ee-429d-a19e-363cd340aee8]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.080987100Z]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Desktop speakers]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Creative Pebble 2.0]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [29.00]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.080987100Z]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.185+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [3e7fa0b5-4bcb-4cbd-bcb5-814c414589fc]
+2026-01-30T16:37:45.187+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [23010ba4-cd5d-4cfc-9d55-f5900a42cedf]
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.080987100Z]
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Full HD webcam]
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Logitech C920]
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [69.00]
+2026-01-30T16:37:45.188+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.080987100Z]
+2026-01-30T16:37:45.189+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.189+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [4e3f1458-39ee-4630-bf4e-a46c5b6f07fc]
+2026-01-30T16:37:45.191+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [da9e1440-4497-47f2-85e0-8f103f302c76]
+2026-01-30T16:37:45.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.081990300Z]
+2026-01-30T16:37:45.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [USB microphone]
+2026-01-30T16:37:45.191+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Blue Yeti]
+2026-01-30T16:37:45.192+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [119.00]
+2026-01-30T16:37:45.192+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.081990300Z]
+2026-01-30T16:37:45.192+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.192+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [86659592-1fc4-490c-8c29-6a612dfe7f5a]
+2026-01-30T16:37:45.194+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [f1ae375f-51ed-4a04-8978-15a96968f965]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.081990300Z]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Monochrome laser printer]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Brother Laser Printer]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [149.00]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.081990300Z]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.195+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [316e3714-4ed8-4f99-ba83-57ed1c21e2db]
+2026-01-30T16:37:45.198+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.198+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [175a08a1-f8b4-4afc-b4c9-c1550184e92b]
+2026-01-30T16:37:45.198+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.081990300Z]
+2026-01-30T16:37:45.198+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.198+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Wi-Fi 6 router]
+2026-01-30T16:37:45.198+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [TP-Link AX3000 Router]
+2026-01-30T16:37:45.198+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [89.00]
+2026-01-30T16:37:45.199+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.081990300Z]
+2026-01-30T16:37:45.199+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.199+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [b8cc787c-a521-4a70-ba66-2b0d168a0239]
+2026-01-30T16:37:45.201+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [337a63c8-174e-42c6-8a7e-1ea378efeb66]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.083058800Z]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Gigabit network switch]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [TP-Link 8-Port Switch]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [29.00]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.083058800Z]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.202+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [b37f5c4a-fe6a-46ba-9801-8ae4a5209857]
+2026-01-30T16:37:45.204+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [b8b41537-0b80-421d-8caf-eac8267c9cbd]
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.083058800Z]
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Wi-Fi access point]
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Ubiquiti Access Point]
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [129.00]
+2026-01-30T16:37:45.204+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.083058800Z]
+2026-01-30T16:37:45.205+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.205+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [9d7e957e-5f54-44e6-899e-a7a2004f263b]
+2026-01-30T16:37:45.208+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [1a4069f9-244b-4c96-8041-aeb295c588da]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.084069400Z]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [High-speed HDMI cable]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [HDMI 2.1 Cable]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [12.00]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.084069400Z]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.209+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [703bd036-18e6-49db-ab78-7e28c8507099]
+2026-01-30T16:37:45.212+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.212+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [1d42a207-6e82-46d2-890d-62b7d60df04c]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.084069400Z]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Dock with HDMI and USB ports]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [USB-C Docking Station]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [149.00]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.084069400Z]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.213+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [edbe080e-c709-40ff-a76a-079a51e3bc42]
+2026-01-30T16:37:45.216+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [9e38713a-eec8-4075-81ca-3e9db2ccec56]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.084069400Z]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Portable USB-C SSD]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [External SSD 1TB]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [109.00]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.084069400Z]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.216+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [63311d07-0921-4f9d-a097-f9ad66428be5]
+2026-01-30T16:37:45.220+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [62ca9d4f-3caf-45d9-b116-959b5bf76f91]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.085110300Z]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [Battery backup UPS]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [APC 1000VA UPS]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [169.00]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.085110300Z]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.220+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [f8279bd8-19eb-4c97-a6ec-04f3172cff54]
+2026-01-30T16:37:45.223+07:00 DEBUG 24232 --- [           main] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        products
+        (category_id, created_at, created_by, description, pro_name, price, updated_at, updated_by, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (1:UUID) <- [54378e12-ea39-4f33-8ad7-cdce23fc3cfb]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (2:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.085110300Z]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (3:VARCHAR) <- [system]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (4:VARCHAR) <- [8-outlet surge protection]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (5:VARCHAR) <- [Surge Protector]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (6:NUMERIC) <- [19.00]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (7:TIMESTAMP_UTC) <- [2026-01-30T09:37:45.085110300Z]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (8:VARCHAR) <- [system]
+2026-01-30T16:37:45.224+07:00 TRACE 24232 --- [           main] org.hibernate.orm.jdbc.bind              : binding parameter (9:UUID) <- [f3404785-c177-4c40-854e-b8ab17b831d2]

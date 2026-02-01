@@ -15,3 +15,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+app:
+  seed:
+    enabled: false
+    attributes:
+      enabled: false
+    variants:
+      enabled: false
+    categoryHierarchy:
+      enabled: false

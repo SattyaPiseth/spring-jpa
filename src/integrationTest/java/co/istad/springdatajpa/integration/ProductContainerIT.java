@@ -28,7 +28,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 @EnabledIfSystemProperty(named = "it.tc", matches = "true")
 @Transactional
 class ProductContainerIT {

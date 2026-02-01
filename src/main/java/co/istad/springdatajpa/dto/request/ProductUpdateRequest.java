@@ -1,6 +1,7 @@
 package co.istad.springdatajpa.dto.request;
 
 import java.math.BigDecimal;
+import java.util.Set;
 import java.util.UUID;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +17,8 @@ public record ProductUpdateRequest(
         @NotNull
         @DecimalMin(value = "0.00", inclusive = false)
         BigDecimal price,
-        UUID categoryId
+        UUID categoryId,
+        Set<UUID> categoryIds
 ) {
 }
 

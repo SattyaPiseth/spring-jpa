@@ -51,6 +51,7 @@ class ProductServiceImplTest {
                 "Book",
                 "Hardcover",
                 new BigDecimal("19.99"),
+                new BigDecimal("19.99"),
                 null,
                 null,
                 Instant.parse("2025-01-01T00:00:00Z"),
@@ -78,7 +79,7 @@ class ProductServiceImplTest {
         UUID id = UUID.randomUUID();
         when(productRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> productService.update(id, new ProductUpdateRequest("A", "B", BigDecimal.ONE, null)))
+        assertThatThrownBy(() -> productService.update(id, new ProductUpdateRequest("A", "B", BigDecimal.ONE, null, null)))
                 .isInstanceOf(ResourceNotFoundException.class);
     }
 
@@ -113,13 +114,14 @@ class ProductServiceImplTest {
 
     @Test
     void create_success_mapsAndSaves() {
-        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"), null);
+        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"), null, null);
         Product product = new Product();
         Product saved = new Product();
         ProductResponse response = new ProductResponse(
                 UUID.randomUUID(),
                 "Name",
                 "Desc",
+                new BigDecimal("2.50"),
                 new BigDecimal("2.50"),
                 null,
                 null,
@@ -138,7 +140,7 @@ class ProductServiceImplTest {
     @Test
     void create_withCategory_setsCategoryBeforeSave() {
         UUID categoryId = UUID.randomUUID();
-        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"), categoryId);
+        ProductCreateRequest request = new ProductCreateRequest("Name", "Desc", new BigDecimal("2.50"), categoryId, null);
         Product product = new Product();
         Category category = new Category();
 
@@ -149,6 +151,7 @@ class ProductServiceImplTest {
                 UUID.randomUUID(),
                 "Name",
                 "Desc",
+                new BigDecimal("2.50"),
                 new BigDecimal("2.50"),
                 categoryId,
                 null,

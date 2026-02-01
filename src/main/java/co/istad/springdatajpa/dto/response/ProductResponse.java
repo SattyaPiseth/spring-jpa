@@ -9,6 +9,7 @@ public record ProductResponse(
         String name,
         String description,
         BigDecimal price,
+        BigDecimal effectivePrice,
         UUID categoryId,
         CategorySummary category,
         Instant createdAt,

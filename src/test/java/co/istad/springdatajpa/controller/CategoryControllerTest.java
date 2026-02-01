@@ -58,6 +58,8 @@ class CategoryControllerTest {
                 UUID.randomUUID(),
                 "Office",
                 "Office supplies",
+                null,
+                null,
                 List.of(),
                 CREATED_AT,
                 UPDATED_AT
@@ -84,6 +86,8 @@ class CategoryControllerTest {
                 id,
                 "Office",
                 "Office supplies",
+                null,
+                null,
                 List.of(new co.istad.springdatajpa.dto.response.ProductSummary(productId, "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
@@ -116,6 +120,8 @@ class CategoryControllerTest {
                 UUID.randomUUID(),
                 "Office",
                 "Office supplies",
+                null,
+                null,
                 List.of(new co.istad.springdatajpa.dto.response.ProductSummary(productId, "Pen", new java.math.BigDecimal("1.25"))),
                 CREATED_AT,
                 UPDATED_AT
@@ -175,6 +181,8 @@ class CategoryControllerTest {
                 id,
                 "Office",
                 "Updated",
+                null,
+                null,
                 List.of(),
                 CREATED_AT,
                 UPDATED_AT

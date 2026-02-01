@@ -10,28 +10,62 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
+import co.istad.springdatajpa.entity.ProductVariant;
+import co.istad.springdatajpa.entity.AttributeDefinition;
+import co.istad.springdatajpa.entity.AttributeDataType;
+import co.istad.springdatajpa.entity.AttributeScope;
+import co.istad.springdatajpa.entity.ProductAttributeValue;
+import co.istad.springdatajpa.entity.ProductAttributeValueId;
+import co.istad.springdatajpa.entity.VariantAttributeValue;
+import co.istad.springdatajpa.entity.VariantAttributeValueId;
 import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
+import co.istad.springdatajpa.repository.ProductVariantRepository;
+import co.istad.springdatajpa.repository.AttributeDefinitionRepository;
+import co.istad.springdatajpa.repository.ProductAttributeValueRepository;
+import co.istad.springdatajpa.repository.VariantAttributeValueRepository;
 
 @Component
 @Profile({"dev","local"})
 public class DataInitialization implements ApplicationRunner {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final ProductVariantRepository productVariantRepository;
+    private final AttributeDefinitionRepository attributeDefinitionRepository;
+    private final ProductAttributeValueRepository productAttributeValueRepository;
+    private final VariantAttributeValueRepository variantAttributeValueRepository;
     private final boolean seedEnabled;
+    private final boolean seedAttributesEnabled;
+    private final boolean seedVariantsEnabled;
+    private final boolean seedCategoryHierarchyEnabled;
 
     // Required Args Constructor
     public DataInitialization(
             CategoryRepository categoryRepository,
             ProductRepository productRepository,
-            @Value("${app.seed.enabled:true}") boolean seedEnabled
+            ProductVariantRepository productVariantRepository,
+            AttributeDefinitionRepository attributeDefinitionRepository,
+            ProductAttributeValueRepository productAttributeValueRepository,
+            VariantAttributeValueRepository variantAttributeValueRepository,
+            @Value("${app.seed.enabled:true}") boolean seedEnabled,
+            @Value("${app.seed.attributes.enabled:true}") boolean seedAttributesEnabled,
+            @Value("${app.seed.variants.enabled:true}") boolean seedVariantsEnabled,
+            @Value("${app.seed.categoryHierarchy.enabled:true}") boolean seedCategoryHierarchyEnabled
     ) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.productVariantRepository = productVariantRepository;
+        this.attributeDefinitionRepository = attributeDefinitionRepository;
+        this.productAttributeValueRepository = productAttributeValueRepository;
+        this.variantAttributeValueRepository = variantAttributeValueRepository;
         this.seedEnabled = seedEnabled;
+        this.seedAttributesEnabled = seedAttributesEnabled;
+        this.seedVariantsEnabled = seedVariantsEnabled;
+        this.seedCategoryHierarchyEnabled = seedCategoryHierarchyEnabled;
     }
 
     @Override
@@ -41,6 +75,7 @@ public class DataInitialization implements ApplicationRunner {
         }
         Map<String, Category> categories = seedCategories();
         seedProducts(categories);
+        seedAttributesAndVariants();
     }
 
     private void seedProducts(Map<String, Category> categories) {
@@ -88,6 +123,57 @@ public class DataInitialization implements ApplicationRunner {
                 newProduct("Surge Protector", "8-outlet surge protection", "19.00", categories.get("Power Strips / Surge Protectors"))
         );
         productRepository.saveAll(products);
+    }
+
+    private void seedAttributesAndVariants() {
+        if (seedAttributesEnabled && attributeDefinitionRepository.count() == 0) {
+            AttributeDefinition brand = newAttribute("Brand", AttributeDataType.STRING, AttributeScope.BOTH, true);
+            AttributeDefinition material = newAttribute("Material", AttributeDataType.STRING, AttributeScope.PRODUCT, true);
+            AttributeDefinition color = newAttribute("Color", AttributeDataType.STRING, AttributeScope.VARIANT, true);
+            AttributeDefinition weight = newAttribute("WeightKg", AttributeDataType.NUMBER, AttributeScope.PRODUCT, false);
+            attributeDefinitionRepository.saveAll(List.of(brand, material, color, weight));
+        }
+
+        List<Product> products = productRepository.findAll();
+        if (products.isEmpty()) {
+            return;
+        }
+
+        Product first = products.get(0);
+        Product second = products.size() > 1 ? products.get(1) : null;
+
+        if (seedVariantsEnabled && productVariantRepository.count() == 0) {
+            ProductVariant v1 = newVariant(first, "SKU-" + shortId(), "799.00", 10);
+            ProductVariant v2 = newVariant(first, "SKU-" + shortId(), "829.00", 5);
+            productVariantRepository.saveAll(List.of(v1, v2));
+
+            if (second != null) {
+                ProductVariant v3 = newVariant(second, "SKU-" + shortId(), "99.00", 25);
+                productVariantRepository.save(v3);
+            }
+        }
+
+        List<AttributeDefinition> defs = attributeDefinitionRepository.findAll();
+        AttributeDefinition brand = defs.stream().filter(d -> d.getName().equals("Brand")).findFirst().orElse(null);
+        AttributeDefinition material = defs.stream().filter(d -> d.getName().equals("Material")).findFirst().orElse(null);
+        AttributeDefinition color = defs.stream().filter(d -> d.getName().equals("Color")).findFirst().orElse(null);
+        AttributeDefinition weight = defs.stream().filter(d -> d.getName().equals("WeightKg")).findFirst().orElse(null);
+
+        if (seedAttributesEnabled && productAttributeValueRepository.count() == 0 && brand != null && material != null && weight != null) {
+            productAttributeValueRepository.saveAll(List.of(
+                    newProductAttr(first, brand, "Apex", null, null),
+                    newProductAttr(first, material, "Aluminum", null, null),
+                    newProductAttr(first, weight, null, new BigDecimal("1.8"), null)
+            ));
+        }
+
+        if (seedAttributesEnabled && variantAttributeValueRepository.count() == 0 && color != null) {
+            List<ProductVariant> variants = productVariantRepository.findAll();
+            if (!variants.isEmpty()) {
+                VariantAttributeValue value = newVariantAttr(variants.get(0), color, "Black", null, null);
+                variantAttributeValueRepository.save(value);
+            }
+        }
     }
 
     private Map<String, Category> seedCategories() {
@@ -138,6 +224,23 @@ public class DataInitialization implements ApplicationRunner {
                     .orElseGet(() -> categoryRepository.save(category));
             persisted.put(saved.getName(), saved);
         }
+        if (seedCategoryHierarchyEnabled) {
+            Category laptops = persisted.get("Laptops");
+            Category gaming = persisted.get("Gaming Laptops");
+            Category business = persisted.get("Business Laptops");
+            if (laptops != null) {
+                if (gaming != null) {
+                    gaming.setParent(laptops);
+                    gaming.setSortOrder(1);
+                    categoryRepository.save(gaming);
+                }
+                if (business != null) {
+                    business.setParent(laptops);
+                    business.setSortOrder(2);
+                    categoryRepository.save(business);
+                }
+            }
+        }
         return persisted;
     }
 
@@ -156,5 +259,56 @@ public class DataInitialization implements ApplicationRunner {
         product.setCategory(category);
         return product;
     }
-}
 
+    private AttributeDefinition newAttribute(String name, AttributeDataType type, AttributeScope scope, boolean filterable) {
+        AttributeDefinition definition = new AttributeDefinition();
+        definition.setName(name);
+        definition.setDataType(type);
+        definition.setScope(scope);
+        definition.setFilterable(filterable);
+        return definition;
+    }
+
+    private ProductVariant newVariant(Product product, String sku, String price, int stock) {
+        ProductVariant variant = new ProductVariant();
+        variant.setProduct(product);
+        variant.setSku(sku);
+        variant.setPrice(new BigDecimal(price));
+        variant.setStock(stock);
+        return variant;
+    }
+
+    private ProductAttributeValue newProductAttr(Product product,
+                                                 AttributeDefinition attribute,
+                                                 String valueString,
+                                                 BigDecimal valueNumber,
+                                                 Boolean valueBoolean) {
+        ProductAttributeValue value = new ProductAttributeValue();
+        value.setId(new ProductAttributeValueId(product.getId(), attribute.getId()));
+        value.setProduct(product);
+        value.setAttribute(attribute);
+        value.setValueString(valueString);
+        value.setValueNumber(valueNumber);
+        value.setValueBoolean(valueBoolean);
+        return value;
+    }
+
+    private VariantAttributeValue newVariantAttr(ProductVariant variant,
+                                                 AttributeDefinition attribute,
+                                                 String valueString,
+                                                 BigDecimal valueNumber,
+                                                 Boolean valueBoolean) {
+        VariantAttributeValue value = new VariantAttributeValue();
+        value.setId(new VariantAttributeValueId(variant.getId(), attribute.getId()));
+        value.setVariant(variant);
+        value.setAttribute(attribute);
+        value.setValueString(valueString);
+        value.setValueNumber(valueNumber);
+        value.setValueBoolean(valueBoolean);
+        return value;
+    }
+
+    private String shortId() {
+        return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+}

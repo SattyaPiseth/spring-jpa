@@ -37,6 +37,7 @@ class ProductMapperTest {
 
         assertThat(response.categoryId()).isEqualTo(categoryId);
         assertThat(response.category()).isEqualTo(new CategorySummary(categoryId, "Office"));
+        assertThat(response.effectivePrice()).isEqualByComparingTo("49.99");
     }
 
     @Test

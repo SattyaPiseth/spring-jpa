@@ -8,6 +8,8 @@ public record CategoryResponse(
         UUID id,
         String name,
         String description,
+        UUID parentId,
+        Integer sortOrder,
         List<ProductSummary> products,
         Instant createdAt,
         Instant updatedAt

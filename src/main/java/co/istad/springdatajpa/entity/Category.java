@@ -1,19 +1,22 @@
 package co.istad.springdatajpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +27,13 @@ import org.hibernate.annotations.UuidGenerator;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "categories")
+@Table(
+        name = "categories",
+        indexes = {
+                @Index(name = "idx_categories_parent_id", columnList = "parent_id"),
+                @Index(name = "idx_categories_parent_id_sort_order", columnList = "parent_id, sort_order")
+        }
+)
 public class Category extends AuditedBaseEntity {
 
     @Id
@@ -41,8 +50,21 @@ public class Category extends AuditedBaseEntity {
     @Column(length = 2000)
     private String description;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"category", "hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    @JsonIgnoreProperties({"parent", "children", "products", "hibernateLazyInitializer", "handler"})
+    private Category parent;
+
+    @Column(name = "sort_order")
+    private Integer sortOrder;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"parent", "children", "products", "hibernateLazyInitializer", "handler"})
+    @Setter(AccessLevel.NONE)
+    private List<Category> children = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"categories", "category", "legacyCategory", "hibernateLazyInitializer", "handler"})
     @Setter(AccessLevel.NONE)
     private List<Product> products = new ArrayList<>();
 
@@ -50,18 +72,18 @@ public class Category extends AuditedBaseEntity {
         if (product == null) {
             return;
         }
-        product.setCategory(this);
+        if (product.getCategory() == null) {
+            product.setCategory(this);
+            return;
+        }
+        product.addCategory(this);
     }
 
     public void removeProduct(Product product) {
         if (product == null) {
             return;
         }
-        if (product.getCategory() == this) {
-            product.setCategory(null);
-        } else {
-            products.remove(product);
-        }
+        product.removeCategory(this);
     }
 }
 

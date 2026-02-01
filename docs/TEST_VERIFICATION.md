@@ -10,7 +10,7 @@ This document describes how to verify Spring Boot tests in this project, the sco
 ## Prerequisites
 
 - Java 21
-- Docker running (only for Testcontainers integration tests)
+- Docker running (only for Testcontainers integration tests). If Docker is not reachable, Testcontainers will skip container-based tests.
 
 ## Test Tiers at a Glance
 
@@ -73,6 +73,12 @@ What this covers:
 
 Expected result:
 - Build succeeds and containers are started/stopped automatically.
+
+### Docker availability troubleshooting
+
+Testcontainers requires a working container runtime (Docker Desktop is supported, along with a few alternatives). If you see "Docker not available" or similar errors, verify Docker Desktop is running and reachable by your shell. See https://java.testcontainers.org/on_failure.html for runtime support and troubleshooting guidance.
+
+On Windows with Docker Desktop, the integrationTest Gradle task sets `DOCKER_HOST=npipe:////./pipe/docker_engine` when not already defined.
 
 Typical assertions in this tier:
 - JSON response fields exist and match persisted data

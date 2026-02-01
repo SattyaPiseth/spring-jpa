@@ -2,3 +2,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+# Seed data (disabled outside dev/local)
+app:
+  seed:
+    enabled: false
+    attributes:
+      enabled: false
+    variants:
+      enabled: false
+    categoryHierarchy:
+      enabled: false

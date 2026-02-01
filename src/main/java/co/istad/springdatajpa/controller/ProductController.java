@@ -4,6 +4,12 @@ import co.istad.springdatajpa.dto.request.ProductCreateRequest;
 import co.istad.springdatajpa.dto.response.ProductResponse;
 import co.istad.springdatajpa.dto.request.ProductUpdateRequest;
 import co.istad.springdatajpa.dto.request.ProductPatchRequest;
+import co.istad.springdatajpa.dto.request.ProductVariantCreateRequest;
+import co.istad.springdatajpa.dto.request.ProductVariantUpdateRequest;
+import co.istad.springdatajpa.dto.request.AttributeValueRequest;
+import co.istad.springdatajpa.dto.response.ProductVariantResponse;
+import co.istad.springdatajpa.dto.response.AttributeValueResponse;
+import co.istad.springdatajpa.dto.response.KeysetResponse;
 import co.istad.springdatajpa.service.ProductService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -25,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.annotation.Validated;
+import java.util.List;
 import java.util.UUID;
 
 @Validated
@@ -49,14 +56,19 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<ProductResponse> listProducts(
+    public ResponseEntity<?> listProducts(
             @RequestParam(defaultValue = "0") @Min(MIN_PAGE) int page,
             @RequestParam(defaultValue = "20") @Min(MIN_SIZE) @Max(MAX_SIZE) int size,
             @RequestParam(defaultValue = "createdAt,desc") String sort,
-            @RequestParam(required = false) UUID categoryId
+            @RequestParam(required = false) UUID categoryId,
+            @RequestParam(required = false) String cursor
     ) {
+        if (cursor != null) {
+            KeysetResponse<ProductResponse> response = productService.listProductsKeyset(categoryId, cursor, size);
+            return ResponseEntity.ok(response);
+        }
         PageRequest pageable = ControllerUtils.pageRequest(page, size, sort, ALLOWED_SORT_FIELDS, defaultSort());
-        return productService.findAll(pageable, categoryId);
+        return ResponseEntity.ok(productService.findAll(pageable, categoryId));
     }
 
     @GetMapping("/{id}")
@@ -92,6 +104,65 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/variants")
+    public ResponseEntity<ProductVariantResponse> createVariant(
+            @PathVariable UUID id,
+            @Valid @RequestBody ProductVariantCreateRequest request
+    ) {
+        ProductVariantResponse response = productService.createVariant(id, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}/variants")
+    public ResponseEntity<?> listVariants(
+            @PathVariable UUID id,
+            @RequestParam(defaultValue = "0") @Min(MIN_PAGE) int page,
+            @RequestParam(defaultValue = "20") @Min(MIN_SIZE) @Max(MAX_SIZE) int size,
+            @RequestParam(defaultValue = "createdAt,desc") String sort,
+            @RequestParam(required = false) String cursor
+    ) {
+        if (cursor != null) {
+            KeysetResponse<ProductVariantResponse> response = productService.listVariantsKeyset(id, cursor, size);
+            return ResponseEntity.ok(response);
+        }
+        PageRequest pageable = ControllerUtils.pageRequest(page, size, sort, ALLOWED_SORT_FIELDS, defaultSort());
+        return ResponseEntity.ok(productService.listVariants(id, pageable));
+    }
+
+    @PutMapping("/{id}/variants/{variantId}")
+    public ResponseEntity<ProductVariantResponse> updateVariant(
+            @PathVariable UUID id,
+            @PathVariable UUID variantId,
+            @Valid @RequestBody ProductVariantUpdateRequest request
+    ) {
+        ProductVariantResponse response = productService.updateVariant(id, variantId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{id}/attributes")
+    public ResponseEntity<AttributeValueResponse> createProductAttribute(
+            @PathVariable UUID id,
+            @Valid @RequestBody AttributeValueRequest request
+    ) {
+        AttributeValueResponse response = productService.createProductAttribute(id, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}/attributes")
+    public List<AttributeValueResponse> listProductAttributes(@PathVariable UUID id) {
+        return productService.listProductAttributes(id);
+    }
+
+    @PutMapping("/{id}/attributes/{attributeId}")
+    public ResponseEntity<AttributeValueResponse> updateProductAttribute(
+            @PathVariable UUID id,
+            @PathVariable UUID attributeId,
+            @Valid @RequestBody AttributeValueRequest request
+    ) {
+        AttributeValueResponse response = productService.updateProductAttribute(id, attributeId, request);
+        return ResponseEntity.ok(response);
     }
 
     private Sort defaultSort() {

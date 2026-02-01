@@ -15,8 +15,10 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = ProductMapper.class)
 public interface CategoryMapper {
 
+    @Mapping(target = "parentId", source = "parent.id")
     CategoryResponse toResponse(Category category);
 
+    @Mapping(target = "parentId", source = "parent.id")
     @Mapping(target = "products", expression = "java(java.util.List.of())")
     CategoryResponse toResponseWithoutProducts(Category category);
 

@@ -4,6 +4,11 @@ import co.istad.springdatajpa.dto.response.ProductResponse;
 import co.istad.springdatajpa.dto.request.ProductCreateRequest;
 import co.istad.springdatajpa.dto.request.ProductPatchRequest;
 import co.istad.springdatajpa.dto.request.ProductUpdateRequest;
+import co.istad.springdatajpa.dto.request.ProductVariantCreateRequest;
+import co.istad.springdatajpa.dto.request.AttributeValueRequest;
+import co.istad.springdatajpa.dto.response.ProductVariantResponse;
+import co.istad.springdatajpa.dto.response.AttributeValueResponse;
+import co.istad.springdatajpa.dto.response.KeysetResponse;
 import co.istad.springdatajpa.exception.ResourceNotFoundException;
 import co.istad.springdatajpa.config.SpringDataWebConfig;
 import co.istad.springdatajpa.error.RestExceptionHandler;
@@ -98,6 +103,7 @@ class ProductControllerTest {
                 "Chair",
                 "Office",
                 new BigDecimal("89.99"),
+                new BigDecimal("89.99"),
                 categoryId,
                 new co.istad.springdatajpa.dto.response.CategorySummary(categoryId, "Office"),
                 CREATED_AT,
@@ -131,6 +137,7 @@ class ProductControllerTest {
                 UUID.randomUUID(),
                 "Keyboard",
                 "Mechanical",
+                new BigDecimal("99.99"),
                 new BigDecimal("99.99"),
                 categoryId,
                 new co.istad.springdatajpa.dto.response.CategorySummary(categoryId, "Office"),
@@ -231,6 +238,20 @@ class ProductControllerTest {
     }
 
     @Test
+    void listProducts_withCursor_returnsKeyset() throws Exception {
+        ProductResponse response = newResponse("Keyboard", "Mechanical", "99.99");
+        KeysetResponse<ProductResponse> keyset = new KeysetResponse<>(List.of(response), "next", true);
+        when(productService.listProductsKeyset(eq(null), eq("token"), eq(20))).thenReturn(keyset);
+
+        mockMvc.perform(get("/products")
+                        .param("cursor", "token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items[0].name").value("Keyboard"))
+                .andExpect(jsonPath("$.nextCursor").value("next"))
+                .andExpect(jsonPath("$.hasNext").value(true));
+    }
+
+    @Test
     void listProducts_categoryNotFound_returns404() throws Exception {
         UUID categoryId = UUID.randomUUID();
         when(productService.findAll(any(Pageable.class), eq(categoryId)))
@@ -290,6 +311,7 @@ class ProductControllerTest {
                 "Monitor",
                 "4K",
                 new BigDecimal("299.99"),
+                new BigDecimal("299.99"),
                 null,
                 null,
                 CREATED_AT,
@@ -334,6 +356,7 @@ class ProductControllerTest {
                 id,
                 "Desk",
                 "Standing desk",
+                new BigDecimal("399.00"),
                 new BigDecimal("399.00"),
                 null,
                 null,
@@ -404,11 +427,120 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.message").exists());
     }
 
+    @Test
+    void createVariant_success_returnsCreated() throws Exception {
+        UUID productId = UUID.randomUUID();
+        ProductVariantResponse response = new ProductVariantResponse(
+                UUID.randomUUID(),
+                productId,
+                "SKU-1",
+                new BigDecimal("9.99"),
+                new BigDecimal("9.99"),
+                10,
+                CREATED_AT,
+                UPDATED_AT
+        );
+        when(productService.createVariant(eq(productId), any(ProductVariantCreateRequest.class))).thenReturn(response);
+
+        mockMvc.perform(post("/products/{id}/variants", productId)
+                        .contentType(JSON)
+                        .content("{\"sku\":\"SKU-1\",\"price\":9.99,\"stock\":10}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.sku").value("SKU-1"));
+    }
+
+    @Test
+    void createProductAttribute_success_returnsCreated() throws Exception {
+        UUID productId = UUID.randomUUID();
+        UUID attributeId = UUID.randomUUID();
+        AttributeValueResponse response = new AttributeValueResponse(
+                attributeId,
+                co.istad.springdatajpa.entity.AttributeDataType.STRING,
+                co.istad.springdatajpa.entity.AttributeScope.PRODUCT,
+                "BrandX",
+                null,
+                null
+        );
+        when(productService.createProductAttribute(eq(productId), any(AttributeValueRequest.class))).thenReturn(response);
+
+        mockMvc.perform(post("/products/{id}/attributes", productId)
+                        .contentType(JSON)
+                        .content("{\"attributeId\":\"" + attributeId + "\",\"valueString\":\"BrandX\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.attributeId").value(attributeId.toString()));
+    }
+
+    @Test
+    void listVariants_returnsPage() throws Exception {
+        UUID productId = UUID.randomUUID();
+        ProductVariantResponse response = new ProductVariantResponse(
+                UUID.randomUUID(),
+                productId,
+                "SKU-2",
+                new BigDecimal("19.99"),
+                new BigDecimal("19.99"),
+                5,
+                CREATED_AT,
+                UPDATED_AT
+        );
+        Page<ProductVariantResponse> page = new PageImpl<>(List.of(response), PageRequest.of(0, 20), 1);
+        when(productService.listVariants(eq(productId), any(Pageable.class))).thenReturn(page);
+
+        mockMvc.perform(get("/products/{id}/variants", productId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].sku").value("SKU-2"))
+                .andExpect(jsonPath("$.page.totalElements").value(1));
+    }
+
+    @Test
+    void listVariants_withCursor_returnsKeyset() throws Exception {
+        UUID productId = UUID.randomUUID();
+        ProductVariantResponse response = new ProductVariantResponse(
+                UUID.randomUUID(),
+                productId,
+                "SKU-4",
+                new BigDecimal("49.99"),
+                new BigDecimal("49.99"),
+                2,
+                CREATED_AT,
+                UPDATED_AT
+        );
+        KeysetResponse<ProductVariantResponse> keyset = new KeysetResponse<>(List.of(response), "next", true);
+        when(productService.listVariantsKeyset(eq(productId), eq("token"), eq(20))).thenReturn(keyset);
+
+        mockMvc.perform(get("/products/{id}/variants", productId)
+                        .param("cursor", "token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items[0].sku").value("SKU-4"))
+                .andExpect(jsonPath("$.nextCursor").value("next"))
+                .andExpect(jsonPath("$.hasNext").value(true));
+    }
+
+    @Test
+    void listProductAttributes_returnsArray() throws Exception {
+        UUID productId = UUID.randomUUID();
+        UUID attributeId = UUID.randomUUID();
+        AttributeValueResponse response = new AttributeValueResponse(
+                attributeId,
+                co.istad.springdatajpa.entity.AttributeDataType.STRING,
+                co.istad.springdatajpa.entity.AttributeScope.PRODUCT,
+                "BrandY",
+                null,
+                null
+        );
+        when(productService.listProductAttributes(productId)).thenReturn(List.of(response));
+
+        mockMvc.perform(get("/products/{id}/attributes", productId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].attributeId").value(attributeId.toString()));
+    }
+
     private static ProductResponse newResponse(String name, String description, String price) {
         return new ProductResponse(
                 UUID.randomUUID(),
                 name,
                 description,
+                new BigDecimal(price),
                 new BigDecimal(price),
                 null,
                 null,

@@ -15,3 +15,9 @@ spring:
 app:
   seed:
     enabled: true
+    attributes:
+      enabled: true
+    variants:
+      enabled: true
+    categoryHierarchy:
+      enabled: true

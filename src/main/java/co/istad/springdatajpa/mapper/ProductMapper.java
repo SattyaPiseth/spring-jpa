@@ -20,14 +20,23 @@ public interface ProductMapper {
 
     @Mapping(target = "categoryId", source = "category.id")
     @Mapping(target = "category", source = "category")
+    @Mapping(target = "effectivePrice", source = "price")
     ProductResponse toResponse(Product product);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "category", ignore = true)
+    @Mapping(target = "legacyCategory", ignore = true)
+    @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "variants", ignore = true)
+    @Mapping(target = "attributeValues", ignore = true)
     Product toEntity(ProductCreateRequest request);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "category", ignore = true)
+    @Mapping(target = "legacyCategory", ignore = true)
+    @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "variants", ignore = true)
+    @Mapping(target = "attributeValues", ignore = true)
     void updateEntity(ProductUpdateRequest request, @MappingTarget Product product);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

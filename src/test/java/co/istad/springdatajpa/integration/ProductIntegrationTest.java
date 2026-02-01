@@ -6,12 +6,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import co.istad.springdatajpa.entity.Category;
 import co.istad.springdatajpa.entity.Product;
+import co.istad.springdatajpa.entity.ProductVariant;
 import co.istad.springdatajpa.repository.CategoryRepository;
 import co.istad.springdatajpa.repository.ProductRepository;
+import co.istad.springdatajpa.repository.ProductVariantRepository;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
@@ -39,9 +44,16 @@ class ProductIntegrationTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductVariantRepository productVariantRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @AfterEach
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void cleanDatabase() {
+        productVariantRepository.deleteAll();
         productRepository.deleteAll();
         categoryRepository.deleteAll();
     }
@@ -191,12 +203,91 @@ class ProductIntegrationTest {
         assertThat(category.getProducts()).doesNotContain(product);
     }
 
+    @Test
+    void keyset_products_multiPageTraversal() throws Exception {
+        productRepository.saveAndFlush(newProduct("Alpha", "A", "1.00"));
+        productRepository.saveAndFlush(newProduct("Beta", "B", "2.00"));
+        productRepository.saveAndFlush(newProduct("Gamma", "C", "3.00"));
+
+        String firstResponse = mockMvc.perform(get("/products")
+                        .param("size", "2")
+                        .param("cursor", ""))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items.length()").value(2))
+                .andExpect(jsonPath("$.hasNext").value(true))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        JsonNode firstJson = objectMapper.readTree(firstResponse);
+        String nextCursor = firstJson.get("nextCursor").asText();
+        assertThat(nextCursor).isNotBlank();
+
+        String secondResponse = mockMvc.perform(get("/products")
+                        .param("size", "2")
+                        .param("cursor", nextCursor))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items.length()").value(1))
+                .andExpect(jsonPath("$.hasNext").value(false))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        JsonNode secondJson = objectMapper.readTree(secondResponse);
+        assertThat(secondJson.get("nextCursor").isNull()).isTrue();
+    }
+
+    @Test
+    void keyset_products_invalidCursor_returns400() throws Exception {
+        mockMvc.perform(get("/products")
+                        .param("cursor", "not-base64")
+                        .param("size", "10"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void keyset_variants_multiPageTraversal() throws Exception {
+        Product product = productRepository.saveAndFlush(newProduct("Phone", "Smartphone", "499.00"));
+        productVariantRepository.saveAndFlush(newVariant(product, "SKU-A", "499.00", 10));
+        productVariantRepository.saveAndFlush(newVariant(product, "SKU-B", "549.00", 5));
+
+        String firstResponse = mockMvc.perform(get("/products/{id}/variants", product.getId())
+                        .param("size", "1")
+                        .param("cursor", ""))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items.length()").value(1))
+                .andExpect(jsonPath("$.hasNext").value(true))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        JsonNode firstJson = objectMapper.readTree(firstResponse);
+        String nextCursor = firstJson.get("nextCursor").asText();
+        assertThat(nextCursor).isNotBlank();
+
+        mockMvc.perform(get("/products/{id}/variants", product.getId())
+                        .param("size", "1")
+                        .param("cursor", nextCursor))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items.length()").value(1))
+                .andExpect(jsonPath("$.hasNext").value(false));
+    }
+
     private static Product newProduct(String name, String description, String price) {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
         product.setPrice(new BigDecimal(price));
         return product;
+    }
+
+    private static ProductVariant newVariant(Product product, String sku, String price, int stock) {
+        ProductVariant variant = new ProductVariant();
+        variant.setProduct(product);
+        variant.setSku(sku);
+        variant.setPrice(new BigDecimal(price));
+        variant.setStock(stock);
+        return variant;
     }
 
     private static Category newCategory(String name, String description) {
