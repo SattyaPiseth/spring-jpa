@@ -337,10 +337,20 @@ public class ProductServiceImpl implements ProductService {
 
     private List<Product> fetchProductsKeyset(UUID categoryId, String cursor, int size) {
         if (cursor == null || cursor.isBlank()) {
-            return productRepository.findKeysetFirstPage(categoryId, PageRequest.of(0, size));
+            if (categoryId == null) {
+                return productRepository.findKeysetFirstPageNoCategory(PageRequest.of(0, size));
+            }
+            return productRepository.findKeysetFirstPageByCategory(categoryId, PageRequest.of(0, size));
         }
         KeysetCursor.Decoded decoded = KeysetCursor.decode(cursor);
-        return productRepository.findKeysetNextPage(
+        if (categoryId == null) {
+            return productRepository.findKeysetNextPageNoCategory(
+                    decoded.createdAt(),
+                    decoded.id(),
+                    PageRequest.of(0, size)
+            );
+        }
+        return productRepository.findKeysetNextPageByCategory(
                 categoryId,
                 decoded.createdAt(),
                 decoded.id(),

@@ -36,7 +36,8 @@ import org.hibernate.annotations.UuidGenerator;
         name = "products",
         indexes = {
                 @Index(name = "idx_products_primary_category_id", columnList = "primary_category_id"),
-                @Index(name = "idx_products_legacy_category_id", columnList = "category_id")
+                @Index(name = "idx_products_legacy_category_id", columnList = "category_id"),
+                @Index(name = "idx_products_created_id_desc", columnList = "created_at, id")
         }
 )
 public class Product extends AuditedBaseEntity {

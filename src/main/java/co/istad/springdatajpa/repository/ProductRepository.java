@@ -26,26 +26,45 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @EntityGraph(attributePaths = "category")
     @Query("""
-            select distinct p
+            select p
             from Product p
-            left join p.categories c
-            where (:categoryId is null or c.id = :categoryId)
             order by p.createdAt desc, p.id desc
             """)
-    List<Product> findKeysetFirstPage(@Param("categoryId") UUID categoryId, Pageable pageable);
+    List<Product> findKeysetFirstPageNoCategory(Pageable pageable);
+
+    @EntityGraph(attributePaths = "category")
+    @Query("""
+            select p
+            from Product p
+            where (p.createdAt < :createdAt or (p.createdAt = :createdAt and p.id < :id))
+            order by p.createdAt desc, p.id desc
+            """)
+    List<Product> findKeysetNextPageNoCategory(@Param("createdAt") Instant createdAt,
+                                               @Param("id") UUID id,
+                                               Pageable pageable);
 
     @EntityGraph(attributePaths = "category")
     @Query("""
             select distinct p
             from Product p
-            left join p.categories c
-            where (:categoryId is null or c.id = :categoryId)
+            join p.categories c
+            where c.id = :categoryId
+            order by p.createdAt desc, p.id desc
+            """)
+    List<Product> findKeysetFirstPageByCategory(@Param("categoryId") UUID categoryId, Pageable pageable);
+
+    @EntityGraph(attributePaths = "category")
+    @Query("""
+            select distinct p
+            from Product p
+            join p.categories c
+            where c.id = :categoryId
               and (p.createdAt < :createdAt or (p.createdAt = :createdAt and p.id < :id))
             order by p.createdAt desc, p.id desc
             """)
-    List<Product> findKeysetNextPage(@Param("categoryId") UUID categoryId,
-                                     @Param("createdAt") Instant createdAt,
-                                     @Param("id") UUID id,
-                                     Pageable pageable);
+    List<Product> findKeysetNextPageByCategory(@Param("categoryId") UUID categoryId,
+                                               @Param("createdAt") Instant createdAt,
+                                               @Param("id") UUID id,
+                                               Pageable pageable);
 }
 
