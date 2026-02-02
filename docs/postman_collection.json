@@ -14,6 +14,103 @@
   ],
   "item": [
     {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "List Categories (offset)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/categories?page=0&size=20&sort=createdAt,desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" },
+                { "key": "sort", "value": "createdAt,desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", "{{categoryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Laptops\",\"description\":\"All laptops\",\"parentId\":null,\"sortOrder\":1}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Laptops\",\"description\":\"Updated\",\"parentId\":null,\"sortOrder\":2}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", "{{categoryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Patch Category",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"description\":\"Short desc\",\"sortOrder\":3}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", "{{categoryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/categories/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", "{{categoryId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "Products",
       "item": [
         {
@@ -77,6 +174,71 @@
           "name": "Get Product",
           "request": {
             "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Laptop A\",\"description\":\"Office laptop\",\"price\":799.00,\"categoryId\":\"{{categoryId}}\",\"categoryIds\":[\"{{categoryId}}\"]}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Laptop A\",\"description\":\"Updated\",\"price\":899.00,\"categoryId\":\"{{categoryId}}\",\"categoryIds\":[\"{{categoryId}}\"]}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Patch Product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"price\":899.00}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
             "url": {
               "raw": "{{baseUrl}}/products/{{productId}}",
               "host": ["{{baseUrl}}"],
@@ -156,6 +318,42 @@
               "path": ["variants", "{{variantId}}"]
             }
           }
+        },
+        {
+          "name": "Create Variant",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"sku\":\"SKU-001\",\"price\":799.00,\"stock\":10}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/variants",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "variants"]
+            }
+          }
+        },
+        {
+          "name": "Update Variant",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"sku\":\"SKU-001\",\"price\":829.00,\"stock\":8}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/variants/{{variantId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "variants", "{{variantId}}"]
+            }
+          }
         }
       ]
     },
@@ -174,6 +372,42 @@
           }
         },
         {
+          "name": "Create Product Attribute",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"attributeId\":\"{{attributeId}}\",\"valueString\":\"BrandX\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/attributes",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "attributes"]
+            }
+          }
+        },
+        {
+          "name": "Update Product Attribute",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"attributeId\":\"{{attributeId}}\",\"valueString\":\"BrandY\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}/attributes/{{attributeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "attributes", "{{attributeId}}"]
+            }
+          }
+        },
+        {
           "name": "List Variant Attributes",
           "request": {
             "method": "GET",
@@ -181,6 +415,42 @@
               "raw": "{{baseUrl}}/variants/{{variantId}}/attributes",
               "host": ["{{baseUrl}}"],
               "path": ["variants", "{{variantId}}", "attributes"]
+            }
+          }
+        },
+        {
+          "name": "Create Variant Attribute",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"attributeId\":\"{{attributeId}}\",\"valueString\":\"Red\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/variants/{{variantId}}/attributes",
+              "host": ["{{baseUrl}}"],
+              "path": ["variants", "{{variantId}}", "attributes"]
+            }
+          }
+        },
+        {
+          "name": "Update Variant Attribute",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"attributeId\":\"{{attributeId}}\",\"valueString\":\"Blue\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/variants/{{variantId}}/attributes/{{attributeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["variants", "{{variantId}}", "attributes", "{{attributeId}}"]
             }
           }
         }
